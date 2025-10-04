@@ -1,12 +1,14 @@
 # 2025 NASA Space Apps Challenge
 
-Project: `A World Away: Hunting for Exoplanets with AI`
-Team: `Outlander`
-Team Members:
-- Jemshit Iskanderov (Team Owner)
-- Nurmyrat Amanmadov
-- Tarlan Abdullayev
-- Parahat Iljanov
+You can find the complete source code, documentation, and updates for this project in our [GitHub repository](https://github.com/OutlanderTeam/NASA_exoplanet_detection). The repository contains instructions for setup, usage, and contribution guidelines. All development, issue tracking, and collaboration for the challenge will be managed through this repo.
+
+- Project: `A World Away: Hunting for Exoplanets with AI`
+- Team: `Outlander`
+- Team Members:
+	- **Jemshit Iskanderov (Team Owner)**
+	- **Nurmyrat Amanmadov**
+	- **Tarlan Abdullayev**
+	- **Parahat Iljanov**
 
 
 ## Challenge Summary
@@ -33,7 +35,7 @@ You may (but are not required to) consider the following:
 
 Dataset: `Kepler Objects of Interest (KOI)`: This dataset is a comprehensive list of all confirmed exoplanets, planetary candidates, and false positives determined on all the transits captured by Kepler. Utilizing the variables in this labeled dataset could make for a solid method of performing supervised learning from different variables in the dataset. See column “Disposition Using Kepler Data” for classification.
 
-> Note: Dataset Link: https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=cumulative
+> **Note:** [Kepler Objects of Interest (KOI) Dataset](https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=cumulative)
 
 ### Subjects
 
@@ -50,13 +52,13 @@ Dataset: `Kepler Objects of Interest (KOI)`: This dataset is a comprehensive lis
 
 ## Technologies Used
 
-- Frontend:
-	- React Javascript Library
-	- Vite
-	- Bootstrap CSS Framework
-- Backend
-	- Python
-	- ML
-	- Flask
+- **Frontend**
+	- [React](https://react.dev/) (JavaScript library for building user interfaces)
+	- [Vite](https://vitejs.dev/) (Frontend build tool for fast development)
+	- [Bootstrap](https://getbootstrap.com/) (CSS framework for responsive design)
 
+- **Backend**
+	- [Python](https://www.python.org/) (Programming language for server-side logic)
+	- [Flask](https://flask.palletsprojects.com/) (Web framework for building APIs)
+	- Machine Learning libraries (for AI model development)
 
