@@ -21,7 +21,7 @@ export function AppBar() {
       <NavbarBrand>
         <div className="flex items-center gap-3">
           <img 
-            src={theme === 'dark' ? '/assets/images/logo-dark.svg' : '/assets/images/logo-light.svg'}
+            src={theme === 'dark' ? '/assets/images/logo1-dark.svg' : '/assets/images/logo1-light.svg'}
             alt="Exoplanet Analyzer Logo" 
             className="h-14 w-auto"
           />
