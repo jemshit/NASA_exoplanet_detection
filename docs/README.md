@@ -3,23 +3,24 @@
   <img src="images/banner.png" alt="S'kaiNet Banner" width="100%">
 </p>
 
-<h1 align="center">🌌 S'kaiNet — Outlander Team</h1>
+<h1 align="center">🌌 S'kaiNet — Exoplanet analyzer</h1>
+<h6 align="center">by Outlander Team</h6>
+<p align="center">
+  <em>"Boldly going where no algorithm has gone before."</em>
+</p>
+
 <h3 align="center">2025 NASA Space Apps Challenge</h3>
 
-<p align="center">
-  <em>"Boldly going where no algorithm has gone before."</em><br>
-  <strong>Challenge:</strong> A World Away: Hunting for Exoplanets with AI
-</p>
+<p align="center">A World Away: Hunting for Exoplanets with AI</p>
 
 ---
 
 ## 🚀 Overview
 
-**S'kaiNet** is an AI-powered exoplanet detection system developed for the **2025 NASA Space Apps Challenge**.
+**S'kaiNet — Exoplanet analyzer** is an AI-powered exoplanet detection system developed for the **2025 NASA Space Apps Challenge**.
 Inspired by *Star Trek’s* Vulcan pursuit of knowledge — **“S'kai”**, meaning enlightenment — our project combines scientific curiosity with artificial intelligence to identify exoplanets from NASA’s open datasets.
 
-Our mission:
-> To build an intelligent platform that helps humanity discover new worlds — automatically.
+Our mission: To build an intelligent platform that helps humanity discover new worlds — automatically.
 
 ---
 
@@ -38,7 +39,7 @@ The model predicts whether an observation corresponds to a **confirmed exoplanet
 
 ### 🌍 Our Approach
 
-1. **Data Preprocessing:** Clean and normalize datasets from Kepler, K2, and TESS missions.
+1. **Data Preprocessing:** Clean and normalize datasets from `Kepler`, `K2`, and `TESS` missions.
 2. **Model Training:** Build and tune ML models using `scikit-learn`.
 3. **Interactive UI:** Develop a web interface for real-time prediction and data uploads.
 4. **Continuous Learning:** Allow users to retrain models dynamically with new data.
@@ -72,7 +73,7 @@ The model predicts whether an observation corresponds to a **confirmed exoplanet
 | GitHub Copilot | Code completion and suggestions |
 | Claude Sonnet 3.7 / 4.0 | Advanced language modeling |
 | GPT-4.1 / GPT-5.0-mini | Language modeling and reasoning |
-| Google Gemini / Notebook LLM | Storytelling and image generation |
+| Google Gemini / NotebookLM | Storytelling and image generation |
 | ChatGPT | Content creation and image generation |
 
 > **Note:** For images and stories created by AI, see [image sources and credits](images/sources_and_credits.md) in the `images` directory.
@@ -110,11 +111,45 @@ The model predicts whether an observation corresponds to a **confirmed exoplanet
 
 ## 🧭 Vision
 
-We envision **S'kaiNet** as a gateway for collaborative discovery — uniting data science, astronomy, and open-source innovation.
+We envision **S'kaiNet — Exoplanet analyzer** as a gateway for collaborative discovery — uniting data science, astronomy, and open-source innovation.
 Our goal is to create a platform that **democratizes access to exoplanet exploration**, helping both researchers and enthusiasts contribute to space science.
 
+---
+
+## 🎬 The Exoplanet Enigma — Fictional Story Adaptation
+
+Our team, **Outlander**, reimagined our NASA Space Apps Challenge project —
+***A World Away: Hunting for Exoplanets with AI*** — as a cinematic *Star Trek*-inspired short screenplay titled ***The Exoplanet Enigma***.
+
+In this fictional story, the crew of the **USS Enterprise-D**, led by **Captain Kirk**, **Spock**, and **Number One**, venture into a mysterious nebula and discover a gravitational anomaly resembling a planet. Unable to rely on visual assumptions, Spock deploys our AI-powered detection system **S’kaiNet - Exoplanet analyzer**, a scientific interface developed by **Starfleet’s Outlander Team**. Using real mission data from **Kepler**, **K2**, and **TESS**, the system calculates a 92 % probability that the object is a confirmed **exoplanet**.
+Through this blend of **science fiction storytelling** and **real astrophysical methodology**, *The Exoplanet Enigma* mirrors the same logic and data-driven exploration principles behind our actual NASA project.
+
+🎧 The story was also adapted into an **audio fiction podcast** titled ***S’kaiNet Chronicles***, combining cinematic voice acting, immersive sound design, and AI-generated narration to bring the Starfleet discovery to life.
 
 ---
+
+### 🧠 Behind the Scenes
+
+The screenplay and podcast were built directly upon our hackathon prototype.
+
+* The fictional **S’kaiNet - Exoplanet analyzer** system mirrors the architecture of our real-world AI model, which analyzes exoplanetary transit data to detect potential new worlds.
+* We used **OpenAI, Google Gemini, NotebookLM tools**, **Python**, and **machine-learning pipelines** integrated with NASA’s **exoplanet archives** to train and test the model.
+* The **screenplay** was written in *Fountain* format and professionally styled to standard Hollywood formatting, while the **podcast** was produced from the same script using AI-assisted audio synthesis and human-directed editing.
+
+This creative adaptation demonstrates how data science, storytelling, and imagination can converge to make complex scientific concepts both **accessible** and **inspiring**.
+
+---
+
+### 🎧 Listen Now
+
+> Experience the *S’kaiNet Chronicles* — a fictional Starfleet log that bridges science and imagination.
+> Follow the crew of the USS Enterprise-D as they use real NASA-inspired AI technology to uncover new worlds.
+
+🎙️ **Episode 1:** [*The Exoplanet Enigma*](stories/skainet-chronicles.m4a)
+📜 **Read the full screenplay:** [screenplay.pdf](stories/screenplay.pdf)
+
+---
+
 
 <p align="center">
 	<em>“Logic is the beginning of wisdom, not the end.”</em><br>
