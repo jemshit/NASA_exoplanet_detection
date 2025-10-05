@@ -1,11 +1,13 @@
 import multiprocessing
+import os
 
 # Server socket
-bind = "0.0.0.0:5005"
+port = os.environ.get("PORT", "5005")
+bind = f"0.0.0.0:{port}"
 backlog = 2048
 
-# Worker processes
-workers = multiprocessing.cpu_count() * 2 + 1
+# Worker processes (limit for Railway's resource constraints)
+workers = min(multiprocessing.cpu_count() * 2 + 1, 4)
 worker_class = "sync"
 worker_connections = 1000
 timeout = 300  # Increased timeout for long-running ML pipelines
