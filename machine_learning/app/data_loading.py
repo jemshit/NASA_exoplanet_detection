@@ -1,8 +1,11 @@
+from typing import Dict
+
 import pandas as pd
 
 
 def load_koi_dataset(
-        path: str,
+        path: str = None,
+        input_rows: list[Dict] = None,
         sep: str = ",",
         target_column: str = "koi_disposition",
         verbose: bool = True
@@ -25,18 +28,29 @@ def load_koi_dataset(
         - Missing value summary (top 10)
         - 'koi_disposition' class distribution
     """
+
     if verbose:
         print("\n" + "=" * 60)
         print("DATA LOADING")
         print("=" * 60)
 
-    df = pd.read_csv(path, sep=sep)
+    if not path and not input_rows:
+        raise ValueError("Either path or input_rows should be provided.")
+
+    df = pd.read_csv(path, sep=sep) if path else pd.DataFrame()
 
     # Basic info
-    if verbose:
+    if path and verbose:
         print(f"✅ Dataset loaded from: {path}")
         print(f"📦 Shape: {df.shape[0]:,} rows × {df.shape[1]:,} columns")
         # 9,566 rows × 50 columns
+
+    if input_rows:
+        df_new = pd.DataFrame(input_rows)
+        df = pd.concat([df, df_new], ignore_index=True)
+
+        if input_rows and verbose:
+            print(f"✅ Appended {len(df_new)} new rows to raw dataset before cleaning.")
 
     # Optional: only print column names if small enough
     if verbose:

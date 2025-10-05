@@ -15,7 +15,8 @@ def train_binary_planet_model(
         df_engineered: pd.DataFrame,
         groups: np.ndarray,
         cv: StratifiedGroupKFold,
-        target_column: str = "koi_disposition"
+        target_column: str = "koi_disposition",
+        save_path: str = None
 ) -> Tuple[Dict, Dict, Dict, Dict, LabelEncoder]:
     """
     Train a binary CONFIRMED vs FALSE POSITIVE classifier from the engineered KOI dataset, using XGBoost
@@ -142,4 +143,23 @@ def train_binary_planet_model(
         le_target=le_target
     )
 
+    # Save trained model (unified package format)
+    if save_path:
+        import pickle
+
+        binary_package = {
+            "models": models,  # unfitted definitions
+            "trained_models": trained_models,  # fitted XGBoost
+            "cv_results": cv_results,  # OOF predictions
+            "metrics_summary": best_model_metrics_summary,  # evaluation results
+            "label_encoder": le_target,  # for decoding predictions
+            "model_type": "binary_xgboost",
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+        with open(save_path, "wb") as f:
+            pickle.dump(binary_package, f)
+            print(f"\n💾 Saved binary model package → {save_path}")
+
+    print("✅ Binary model training complete.")
     return cv_results, models, trained_models, best_model_metrics_summary, le_target

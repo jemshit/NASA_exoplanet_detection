@@ -134,17 +134,18 @@ def train_stacking_ensemble(
     print(f"Improvement: {improvement:+.2f}%")
 
     # --- 5. Detailed Metrics ---
-    print("\nStacking Classification Report:")
-    print(classification_report(y_encoded, stacking_oof_pred, target_names=list(le_target.classes_)))
+    if len(np.unique(y_encoded)) > 1:
+        print("\nStacking Classification Report:")
+        print(classification_report(y_encoded, stacking_oof_pred, target_names=list(le_target.classes_)))
 
-    cm = confusion_matrix(y_encoded, stacking_oof_pred)
-    print("\nConfusion Matrix:")
-    print(pd.DataFrame(cm, index=le_target.classes_, columns=le_target.classes_))
+        cm = confusion_matrix(y_encoded, stacking_oof_pred)
+        print("\nConfusion Matrix:")
+        print(pd.DataFrame(cm, index=le_target.classes_, columns=le_target.classes_))
 
-    print("\nPer-Class Recall:")
-    for i, class_name in enumerate(le_target.classes_):
-        recall = cm[i, i] / cm[i, :].sum()
-        print(f"  {class_name:15s}: {recall:.4f}")
+        print("\nPer-Class Recall:")
+        for i, class_name in enumerate(le_target.classes_):
+            recall = cm[i, i] / cm[i, :].sum()
+            print(f"  {class_name:15s}: {recall:.4f}")
 
     # --- 6. Store Results ---
     cv_results["Stacking"] = stacking_results
@@ -156,18 +157,23 @@ def train_stacking_ensemble(
     stacking_final = clone(stacking_clf)
     stacking_final.fit(X_scaled, y_encoded)
 
-    stacking_package = {
-        "model": stacking_final,
-        "label_encoder": le_target,
-        "model_type": "stacking",
-        "cv_accuracy": stacking_results["accuracy"],
-        "cv_std": stacking_results["accuracy_std"]
-    }
     warnings.filterwarnings("default", category=RuntimeWarning)
+
+    stacking_package = {
+        "models": models,  # unfitted base models
+        "trained_models": {"Stacking": stacking_final},  # fitted meta-model
+        "cv_results": cv_results,  # previous CV metrics for comparison
+        "stacking_results": stacking_results,  # stacking CV metrics
+        "best_model_name": best_model_name,
+        "label_encoder": le_target,
+        "model_type": "stacking_ensemble",
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }
 
     if save_path:
         with open(save_path, "wb") as f:
             pickle.dump(stacking_package, f)
-            print(f"💾 Saved stacking model to: {save_path}")
+            print(f"💾 Saved full stacking ensemble package → {save_path}")
 
+    print("\n✅ Stacking ensemble training complete.")
     return stacking_results, stacking_final

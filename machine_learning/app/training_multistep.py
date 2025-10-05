@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.base import clone
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score,
-    classification_report, confusion_matrix
+    classification_report
 )
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.neural_network import MLPClassifier

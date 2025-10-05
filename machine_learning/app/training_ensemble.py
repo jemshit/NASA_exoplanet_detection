@@ -1,5 +1,4 @@
 import time
-from encodings.idna import sace_prefix
 from typing import Dict, Tuple
 
 import numpy as np
@@ -202,21 +201,29 @@ def train_ensemble_models(
         m.fit(X_scaled, y_encoded)
         trained_models[name] = m
 
-    if save_prefix:
-        import pickle
-        for name, m in trained_models.items():
-            fname = save_prefix + f"trained_{name.lower()}.pkl"
-            with open(fname, "wb") as f:
-                pickle.dump(m, f)
-                print(f"💾 Saved {fname}")
-
-    print("\n✅ All models trained successfully.")
-
     best_model_metrics_summary = evaluate_the_best_model(
         cv_results=cv_results,
         best_model_name=best_model_name,
         y_encoded=y_encoded,
         le_target=le_target
     )
+
+    if save_prefix:
+        import pickle
+
+        # --- Save each model separately ---
+        for name, m in trained_models.items():
+            fname = save_prefix + f"trained_{name.lower()}.pkl"
+            with open(fname, "wb") as f:
+                pickle.dump({
+                    "model": m,
+                    "label_encoder": le_target,
+                    "model_name": name,
+                    "model_type": "single_ensemble",
+                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+                }, f)
+            print(f"💾 Saved individual model → {fname}")
+
+    print("\n✅ All models trained successfully.")
 
     return cv_results, models, trained_models, best_model_metrics_summary
