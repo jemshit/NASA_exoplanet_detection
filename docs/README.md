@@ -52,6 +52,7 @@ The model predicts whether an observation corresponds to a **confirmed exoplanet
 |-------------|----------|
 | [Vite](https://vitejs.dev/) | Build tool for fast development |
 | [React 18](https://react.dev/) | UI framework |
+| [React Native](https://reactnative.dev/) | Mobile UI framework |
 | [TypeScript](https://www.typescriptlang.org/) | Type safety |
 | [TailwindCSS](https://tailwindcss.com/) | Styling framework |
 | [HeroUI](https://www.heroui.com/) | Component library |
@@ -63,6 +64,16 @@ The model predicts whether an observation corresponds to a **confirmed exoplanet
 | [Python](https://www.python.org/) | Core backend language |
 | [Flask](https://flask.palletsprojects.com/) | API and server framework |
 | [scikit-learn](https://scikit-learn.org/) | Machine learning and analysis |
+
+
+### **AI & LLMs**
+| Technology | Purpose |
+|-----------------------------|-------------------------------|
+| GitHub Copilot | Code completion and suggestions |
+| Claude Sonnet 3.7 / 4.0 | Advanced language modeling |
+| GPT-4.1 / GPT-5.0-mini | Language modeling and reasoning |
+| Google Gemini / Notebook LLM | Storytelling and image generation |
+| ChatGPT | Content creation and image generation |
 
 ---
 
