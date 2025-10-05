@@ -13,6 +13,7 @@ import {
 import { ChevronDown, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
+
 export function AppBar() {
   const { theme, toggleTheme } = useTheme();
 
