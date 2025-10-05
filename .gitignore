@@ -5,6 +5,13 @@ dist/
 .env
 .env.local
 
+frontend/.DS_Store
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.env
+frontend/.env.local
+
 # Python/Flask/ML
 __pycache__/
 *.pyc

@@ -53,12 +53,15 @@ Dataset: `Kepler Objects of Interest (KOI)`: This dataset is a comprehensive lis
 ## Technologies Used
 
 - **Frontend**
-	- [React](https://react.dev/) (JavaScript library for building user interfaces)
-	- [Vite](https://vitejs.dev/) (Frontend build tool for fast development)
-	- [Bootstrap](https://getbootstrap.com/) (CSS framework for responsive design)
+	- [Vite](https://vitejs.dev/) - Fast build tool
+	- [React 18](https://react.dev/) - UI framework
+	- [TypeScript](https://www.typescriptlang.org/) - Type safety
+	- [TailwindCSS](https://tailwindcss.com/) - Utility-first styling
+	- [HeroUI](https://www.heroui.com/) - React component library
+	- [Framer Motion](https://www.framer.com/motion/) - Animations (via HeroUI)
 
 - **Backend**
 	- [Python](https://www.python.org/) (Programming language for server-side logic)
 	- [Flask](https://flask.palletsprojects.com/) (Web framework for building APIs)
-	- Machine Learning libraries (for AI model development)
+	- [scikit-learn](https://scikit-learn.org/) (Machine learning library for data analysis and modeling)
 
