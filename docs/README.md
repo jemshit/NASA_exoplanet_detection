@@ -146,6 +146,13 @@ This creative adaptation demonstrates how data science, storytelling, and imagin
 > Follow the crew of the USS Enterprise-D as they use real NASA-inspired AI technology to uncover new worlds.
 
 🎙️ **Episode 1:** [*The Exoplanet Enigma*](stories/skainet-chronicles.m4a)
+- 📥 **[Download Audio](stories/skainet-chronicles.m4a)** *(Right-click → Save As)*
+- 🎧 **[Listen Online](https://github.com/jemshit/NASA_exoplanet_detection/raw/main/docs/stories/skainet-chronicles.m4a)** *(Direct stream)*
+
+🎬 **Video:** [*The Exoplanet Enigma - Visual Story*](https://youtu.be/YOUR_VIDEO_ID)
+<!-- - 📺 **[Watch on YouTube](https://youtu.be/YOUR_VIDEO_ID)** *(Coming Soon)* -->
+- 🎥 **[Download Video](stories/skainet-chronicles.mp4)**
+
 📜 **Read the full screenplay:** [screenplay.pdf](stories/screenplay.pdf)
 
 ---
