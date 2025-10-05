@@ -30,9 +30,6 @@ def evaluate_the_best_model(
     best_oof_pred = cv_results[best_model_name]['oof_pred']
     best_oof_proba = cv_results[best_model_name]['oof_proba']
 
-    # Confusion matrix
-    cm = confusion_matrix(y_encoded, best_oof_pred)
-
     # Per-class metrics
     macro_prec = precision_score(y_encoded, best_oof_pred, average='macro')
     macro_rec = recall_score(y_encoded, best_oof_pred, average='macro')
@@ -70,17 +67,19 @@ def evaluate_the_best_model(
     print(f"DETAILED METRICS FOR {best_model_name}")
     print("=" * 60)
 
-    print("\nClassification Report:")
-    print(classification_report(y_encoded, best_oof_pred, target_names=list(le_target.classes_)))
+    if len(np.unique(y_encoded)) > 1:
+        cm = confusion_matrix(y_encoded, best_oof_pred)
 
-    print("\nConfusion Matrix:")
-    print(pd.DataFrame(cm, index=le_target.classes_, columns=le_target.classes_))
-    print(f"Order: {', '.join(le_target.classes_)}")
+        print("\nClassification Report:")
+        print(classification_report(y_encoded, best_oof_pred, target_names=list(le_target.classes_)))
+        print("\nConfusion Matrix:")
+        print(pd.DataFrame(cm, index=le_target.classes_, columns=le_target.classes_))
+        print(f"Order: {', '.join(le_target.classes_)}")
 
-    print("\nPer-Class Recall (Critical for Exoplanet Detection):")
-    for i, class_name in enumerate(le_target.classes_):
-        class_recall = cm[i, i] / cm[i, :].sum()
-        print(f"  {class_name:15s}: {class_recall:.4f} ({cm[i, i]}/{cm[i, :].sum()} detected)")
+        print("\nPer-Class Recall (Critical for Exoplanet Detection):")
+        for i, class_name in enumerate(le_target.classes_):
+            class_recall = cm[i, i] / cm[i, :].sum()
+            print(f"  {class_name:15s}: {class_recall:.4f} ({cm[i, i]}/{cm[i, :].sum()} detected)")
 
     print("\nMacro Metrics (Equal Weight to All Classes):")
     print(f"  Precision: {macro_prec:.4f}")

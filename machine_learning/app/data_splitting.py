@@ -6,12 +6,10 @@ import pandas as pd
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.preprocessing import LabelEncoder
 
-from data_loading import load_koi_dataset
-
 
 def prepare_data_for_training(
         df_engineered: pd.DataFrame,
-        dataset_path: str,
+        df_original: pd.DataFrame,
         target_column: str = "koi_disposition",
         n_splits: int = 5,
         save_columns_path: str = "features.json"
@@ -23,8 +21,8 @@ def prepare_data_for_training(
     Args:
         df_engineered (pd.DataFrame):
             DataFrame after feature engineering.
-        dataset_path (str):
-            Path to the original Kepler dataset (used to extract `kepid` for grouping).
+        df_original (pd.DataFrame):
+            DataFrame after feature engineering.
         target_column (str, optional):
             Target column name. Defaults to 'koi_disposition'.
         n_splits (int, optional):
@@ -58,9 +56,7 @@ def prepare_data_for_training(
     for cls, count in zip(le_target.classes_, np.bincount(y_encoded)):
         print(f"  - {cls}: {count}")
 
-    # 3. Load original dataset to get grouping IDs (kepid)
-    df_original = load_koi_dataset(path=dataset_path, sep=",", target_column=target_column, verbose=False)
-
+    # 3. original dataset to get grouping IDs (kepid)
     if "kepid" not in df_original.columns:
         raise KeyError("Column 'kepid' not found in original dataset.")
 
@@ -70,9 +66,18 @@ def prepare_data_for_training(
     print(f"✅ Valid KOIs remaining: {len(df_original)}")
 
     # 4. Align indices
-    if len(df_original) != len(df_engineered):
-        print(f"⚠️ Mismatch detected , aborting.")
-        raise Exception("⚠️ Mismatch detected , aborting.")
+    if len(df_engineered) != len(df_original):
+        diff = len(df_engineered) - len(df_original)
+        if diff > 0:
+            print(f"⚠️ Detected {diff} appended input row(s); assigning temporary kepid(s).")  # <<< CHANGED
+            max_kepid = int(df_original["kepid"].max())
+            new_ids = np.arange(max_kepid + 1, max_kepid + diff + 1)
+            df_extra = df_engineered.iloc[-diff:].copy()
+            df_extra["kepid"] = new_ids
+            df_original = pd.concat([df_original, df_extra[["kepid"]]], ignore_index=True)
+        else:
+            raise Exception(
+                f"⚠️ Unexpected mismatch detected: df_engineered({len(df_engineered)}) < df_original({len(df_original)})")
     groups = df_original["kepid"].astype(int).values
 
     # Sanity check
