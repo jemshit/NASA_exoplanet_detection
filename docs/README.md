@@ -75,6 +75,8 @@ The model predicts whether an observation corresponds to a **confirmed exoplanet
 | Google Gemini / Notebook LLM | Storytelling and image generation |
 | ChatGPT | Content creation and image generation |
 
+> **Note:** For images and stories created by AI, see [image sources and credits](images/sources_and_credits.md) in the `images` directory.
+
 ---
 
 ## 🛰️ NASA Data & Resources
