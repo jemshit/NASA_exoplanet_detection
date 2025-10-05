@@ -1,0 +1,12 @@
+[phases.setup]
+aptPkgs = [
+  "libgomp1",        # GNU OpenMP (required by XGBoost, LightGBM)
+  "libglib2.0-0",    # GLib library
+  "libsm6",          # X11 Session Management library
+  "libxrender1",     # X Rendering Extension client library
+  "libxext6",        # X11 miscellaneous extensions
+]
+
+[start]
+cmd = "gunicorn server:app -c gunicorn.conf.py"
+
