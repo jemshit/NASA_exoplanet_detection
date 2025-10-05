@@ -153,6 +153,7 @@ This creative adaptation demonstrates how data science, storytelling, and imagin
 <!-- - 📺 **[Watch on YouTube](https://youtu.be/YOUR_VIDEO_ID)** *(Coming Soon)* -->
 - 🎥 **[Download Video](stories/skainet-chronicles.mp4)**
 
+📚 *Comic Con Special Edition:* [the-exoplanet-enigma.pdf](stories/the-exoplanet-enigma.pdf)
 📜 **Read the full screenplay:** [screenplay.pdf](stories/screenplay.pdf)
 
 ---
