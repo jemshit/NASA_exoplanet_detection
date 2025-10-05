@@ -1,8 +1,5 @@
 import json
-<<<<<<< HEAD
-=======
 import os
->>>>>>> c79674ff58e31081dda3755c3db8605ba1ecdc95
 import warnings
 from typing import Dict
 
@@ -138,13 +135,8 @@ def multistep_pipeline(input_rows: list[Dict] = None, drop_fpflags: bool = True)
     )
 
 
-<<<<<<< HEAD
-def predict(input_rows: list[Dict], model_path: str):
-    df_raw = load_koi_dataset(path=DATASET_PATH, input_rows=input_rows, sep=",",
-=======
 def predict(dataset_path: str | None, input_rows: list[Dict], model_path: str):
     df_raw = load_koi_dataset(path=dataset_path, input_rows=input_rows, sep=",",
->>>>>>> c79674ff58e31081dda3755c3db8605ba1ecdc95
                               target_column=TARGET_COLUMN, verbose=False)
     df_clean = clean_koi_dataset(df_raw, drop_fpflags=True)
     df_engineered = create_advanced_features(df_clean)
@@ -183,10 +175,7 @@ def predict(dataset_path: str | None, input_rows: list[Dict], model_path: str):
 if __name__ == "__main__":
     warnings.filterwarnings("ignore", category=RuntimeWarning)
     warnings.filterwarnings("ignore", category=UserWarning)
-<<<<<<< HEAD
-=======
     os.makedirs(OUTPUT_FOLDER, exist_ok=True)
->>>>>>> c79674ff58e31081dda3755c3db8605ba1ecdc95
     input_rows = [
         {
             "rowid": 1,
@@ -248,11 +237,7 @@ if __name__ == "__main__":
     # binary_categories_pipeline(input_rows, drop_fpflags=True)
 
     # PREDICTION
-<<<<<<< HEAD
-    predict(input_rows, model_path=OUTPUT_FOLDER + "stacking_model.pkl")
-=======
-    predict(dataset_path=None, input_rows=input_rows, model_path=OUTPUT_FOLDER + "trained_randomforest.pkl")
->>>>>>> c79674ff58e31081dda3755c3db8605ba1ecdc95
+    predict(dataset_path=DATASET_PATH, input_rows=input_rows, model_path=OUTPUT_FOLDER + "stacking_model.pkl")
 
     warnings.filterwarnings("default", category=RuntimeWarning)
     warnings.filterwarnings("default", category=UserWarning)
