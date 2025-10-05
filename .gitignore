@@ -1,0 +1,43 @@
+# Node/Vite/React
+node_modules/
+dist/
+.vite/
+.env
+.env.local
+
+# Python/Flask/ML
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.env
+.DS_Store
+
+# Data files
+backend/app/data/*.csv
+backend/app/data/*.xlsx
+backend/app/data/*.tsv
+
+# Test/coverage
+coverage/
+*.cover
+*.log
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.egg-info/
+build/
+
+# Misc
+*.swp
+*.bak
+
+# Docs
+*.ipynb_checkpoints
