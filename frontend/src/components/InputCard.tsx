@@ -11,6 +11,7 @@ interface InputCardProps {
   analyzing: boolean;
   onAnalyze: () => void;
   onCancel: () => void;
+  onViewDemo: () => void;
 }
 
 export function InputCard({
@@ -21,6 +22,7 @@ export function InputCard({
   analyzing,
   onAnalyze,
   onCancel,
+  onViewDemo,
 }: InputCardProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -242,7 +244,6 @@ export function InputCard({
 
           {/* Analysis Section */}
           <div className="space-y-4">
-            <h3 className="text-base font-medium text-primary-text dark:text-dark-primary-text">Analysis</h3>
             <Button
               className="bg-accent dark:bg-dark-accent hover:bg-accent-hover dark:hover:bg-dark-accent-hover text-white"
               size="lg"
@@ -264,6 +265,16 @@ export function InputCard({
                 Cancel
               </Button>
             )}
+
+            <Button
+              color="default"
+              variant="flat"
+              size="lg"
+              fullWidth
+              onPress={onViewDemo}
+            >
+              View Demo
+            </Button>
           </div>
         </div>
       </CardBody>

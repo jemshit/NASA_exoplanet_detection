@@ -91,17 +91,6 @@ export function OutputCard({
               Demo
             </Chip>
           )}
-          {onDemoModeChange && (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-secondary-text dark:text-dark-secondary-text">Show Demo</span>
-              <Switch
-                isSelected={demoMode}
-                onValueChange={onDemoModeChange}
-                size="sm"
-                color="success"
-              />
-            </div>
-          )}
         </div>
         <div className="flex gap-2">
           {demoMode && onDemoExampleChange && (
@@ -144,14 +133,17 @@ export function OutputCard({
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          <Button
-            size="sm"
-            variant="flat"
-            className="text-accent dark:text-dark-accent border-accent dark:border-dark-accent hover:bg-accent-hover dark:hover:bg-dark-accent-hover hover:text-white"
-            onPress={onReset}
-          >
-            Run Again
-          </Button>
+          {onDemoModeChange && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-secondary-text dark:text-dark-secondary-text">Demo Mode</span>
+              <Switch
+                isSelected={demoMode}
+                onValueChange={onDemoModeChange}
+                size="sm"
+                color="success"
+              />
+            </div>
+          )}
         </div>
       </CardHeader>
       <CardBody>
