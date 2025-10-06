@@ -1,6 +1,6 @@
 /* ====================================
-   S'kaiNet Interactive Enhancements
-   Professional UI Interactions & Animations
+	S'kaiNet Interactive Enhancements
+	Professional UI Interactions & Animations
    ==================================== */
 
 // Wait for DOM to be ready
@@ -11,19 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeEnhancements() {
     // Initialize smooth scrolling
     initSmoothScrolling();
-    
+
     // Initialize navbar effects
     initNavbarEffects();
-    
+
     // Initialize hero statistics animation
     initHeroStats();
-    
+
     // Initialize chart controls
     initChartControls();
-    
+
     // Initialize loading enhancements
     initLoadingEnhancements();
-    
+
     // Initialize performance optimizations
     initPerformanceOptimizations();
 }
@@ -55,7 +55,7 @@ function initNavbarEffects() {
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
-        
+
         // Add/remove background based on scroll position
         if (currentScrollY > 50) {
             navbar.style.background = 'rgba(10, 14, 39, 0.95)';
@@ -67,7 +67,7 @@ function initNavbarEffects() {
 
         // Update active navigation based on scroll position
         updateActiveNavigation();
-        
+
         lastScrollY = currentScrollY;
     });
 }
@@ -76,7 +76,7 @@ function initNavbarEffects() {
 function updateActiveNavigation() {
     const sections = document.querySelectorAll('section[id], div[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     let current = '';
     sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
@@ -84,7 +84,7 @@ function updateActiveNavigation() {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
@@ -96,14 +96,14 @@ function updateActiveNavigation() {
 // Animate hero statistics with counting effect
 function initHeroStats() {
     const statNumbers = document.querySelectorAll('.hero-stats .stat-number');
-    
+
     // Initial values (will be updated when data loads)
     const initialStats = {
         'heroTotalObjects': 0,
         'heroConfirmed': 0,
         'heroCandidates': 0
     };
-    
+
     // Set initial loading state
     statNumbers.forEach(stat => {
         const id = stat.id;
@@ -117,7 +117,7 @@ function initHeroStats() {
 // Update hero stats with animation when data is loaded
 function updateHeroStats(data) {
     const stats = calculateStats(data);
-    
+
     animateCounter('heroTotalObjects', stats.total, 2000);
     animateCounter('heroConfirmed', stats.confirmed, 2500);
     animateCounter('heroCandidates', stats.candidates, 3000);
@@ -126,14 +126,14 @@ function updateHeroStats(data) {
 // Calculate basic stats from dataset
 function calculateStats(data) {
     const total = data.length;
-    const confirmed = data.filter(item => 
-        item.koi_disposition === 'CONFIRMED' || 
+    const confirmed = data.filter(item =>
+        item.koi_disposition === 'CONFIRMED' ||
         item.koi_pdisposition === 'CANDIDATE'
     ).length;
-    const candidates = data.filter(item => 
+    const candidates = data.filter(item =>
         item.koi_pdisposition === 'CANDIDATE'
     ).length;
-    
+
     return { total, confirmed, candidates };
 }
 
@@ -141,29 +141,29 @@ function calculateStats(data) {
 function animateCounter(elementId, finalValue, duration) {
     const element = document.getElementById(elementId);
     if (!element) return;
-    
+
     element.classList.remove('loading');
-    
+
     const startValue = 0;
     const startTime = Date.now();
-    
+
     function updateCounter() {
         const currentTime = Date.now();
         const progress = Math.min((currentTime - startTime) / duration, 1);
-        
+
         // Easing function for smooth animation
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         const currentValue = Math.floor(easeOutQuart * finalValue);
-        
+
         element.textContent = currentValue.toLocaleString();
-        
+
         if (progress < 1) {
             requestAnimationFrame(updateCounter);
         } else {
             element.textContent = finalValue.toLocaleString();
         }
     }
-    
+
     requestAnimationFrame(updateCounter);
 }
 
@@ -185,7 +185,7 @@ function toggleChartFullscreen(chartCard) {
         // Exit fullscreen
         chartCard.classList.remove('fullscreen');
         document.body.classList.remove('chart-fullscreen-active');
-        
+
         // Remove fullscreen styles
         chartCard.style.position = '';
         chartCard.style.top = '';
@@ -198,7 +198,7 @@ function toggleChartFullscreen(chartCard) {
         // Enter fullscreen
         chartCard.classList.add('fullscreen');
         document.body.classList.add('chart-fullscreen-active');
-        
+
         // Add fullscreen styles
         chartCard.style.position = 'fixed';
         chartCard.style.top = '0';
@@ -209,7 +209,7 @@ function toggleChartFullscreen(chartCard) {
         chartCard.style.background = 'rgba(10, 14, 39, 0.98)';
         chartCard.style.backdropFilter = 'blur(20px)';
     }
-    
+
     // Trigger chart resize after animation
     setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
@@ -219,7 +219,7 @@ function toggleChartFullscreen(chartCard) {
 // Enhanced loading animations
 function initLoadingEnhancements() {
     const loadingState = document.getElementById('loadingState');
-    
+
     if (loadingState) {
         // Add pulsing effect to loading text
         const loadingText = loadingState.querySelector('h3');
@@ -231,7 +231,7 @@ function initLoadingEnhancements() {
                 }, 500);
             }, 2000);
         }
-        
+
         // Simulate loading progress
         const progressBar = loadingState.querySelector('.progress-bar');
         if (progressBar) {
@@ -263,12 +263,12 @@ function initPerformanceOptimizations() {
         threshold: 0.1,
         rootMargin: '50px'
     });
-    
+
     // Observe all chart cards
     document.querySelectorAll('.chart-card').forEach(card => {
         chartObserver.observe(card);
     });
-    
+
     // Debounced resize handler for charts
     let resizeTimeout;
     window.addEventListener('resize', () => {
@@ -303,37 +303,37 @@ style.textContent = `
     .chart-card.fullscreen {
         transition: all 0.3s ease !important;
     }
-    
+
     .chart-card.fullscreen .chart-container,
     .chart-card.fullscreen .chart-container-wide {
         height: calc(100vh - 120px) !important;
         padding: 2rem !important;
     }
-    
+
     .chart-card.fullscreen .chart-header {
         padding: 2rem !important;
     }
-    
+
     body.chart-fullscreen-active {
         overflow: hidden;
     }
-    
+
     .chart-card:not(.visible) {
         opacity: 0;
         transform: translateY(20px);
         transition: all 0.6s ease;
     }
-    
+
     .chart-card.visible {
         opacity: 1;
         transform: translateY(0);
     }
-    
+
     .stat-number.loading {
         opacity: 0.5;
         animation: pulse 1.5s ease-in-out infinite;
     }
-    
+
     @keyframes pulse {
         0%, 100% { opacity: 0.5; }
         50% { opacity: 0.8; }

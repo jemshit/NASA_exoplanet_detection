@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="S'kaiNet — Exoplanet analyzer is an AI-powered exoplanet detection system developed for the 2025 NASA Space Apps Challenge. Inspired by Star Trek’s Vulcan pursuit of knowledge — “S'kai”, meaning enlightenment — our project combines scientific curiosity with artificial intelligence to identify exoplanets from NASA’s open datasets.">
     <title>S'kaiNet Exoplanet Analyzer | NASA Space Apps Challenge 2025</title>
-		<link rel="icon" type="image/png" href="../frontend/public/assets/images/fav.png">
+	<link rel="icon" type="image/png" href="../frontend/public/assets/images/fav.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -44,11 +44,11 @@
                 <span class="brand-text">S'kaiNet</span>
                 <span class="brand-subtitle ms-2">Exoplanet Analyzer</span>
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
@@ -66,8 +66,13 @@
                             <i class="fas fa-rocket me-1"></i>Mission
                         </a>
                     </li>
+					<li class="nav-item">
+						<a class="nav-link" href="#aiEngineSection" target="_blank">
+							<i class="fas fa-brain me-1"></i>AI Engine
+						</a>
+					</li>
                 </ul>
-                
+
                 <div class="navbar-nav">
                     <div class="nav-item mission-status">
                         <span class="status-indicator online"></span>
@@ -88,18 +93,18 @@
                             <i class="fas fa-award me-2"></i>
                             NASA Space Apps Challenge 2025
                         </div>
-                        
+
                         <h1 class="hero-title mb-4">
                             S'kaiNet
                             <span class="hero-subtitle-inline">Exoplanet Discovery Platform</span>
                         </h1>
-                        
+
                         <p class="hero-description mb-5">
                             Advanced AI-powered analysis of NASA's Kepler, K2, and TESS mission data.
                             Automated detection and classification of exoplanets, planetary candidates, and false positives
                             using cutting-edge machine learning algorithms.
                         </p>
-                        
+
                         <div class="hero-stats row text-center mb-5">
                             <div class="col-md-3 col-6">
                                 <div class="stat-item">
@@ -126,7 +131,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="hero-actions">
                             <a href="#visualizations" class="btn btn-primary btn-lg me-3">
                                 <i class="fas fa-chart-line me-2"></i>Explore Data
@@ -139,7 +144,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Scroll Indicator -->
         <div class="scroll-indicator">
             <i class="fas fa-chevron-down"></i>
@@ -156,13 +161,13 @@
                         Mission Overview
                     </h2>
                     <p class="section-description">
-                        Inspired by Star Trek's Vulcan pursuit of knowledge — "S'kai" meaning enlightenment — 
-                        our project combines scientific curiosity with artificial intelligence to identify exoplanets 
+                        Inspired by Star Trek's Vulcan pursuit of knowledge — "S'kai" meaning enlightenment —
+                        our project combines scientific curiosity with artificial intelligence to identify exoplanets
                         from NASA's open datasets.
                     </p>
                 </div>
             </div>
-            
+
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="mission-card">
@@ -200,21 +205,19 @@
         <div class="container-fluid px-4">
             <!-- Data Control Panel -->
             <div class="control-panel mb-4">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <h2 class="panel-title mb-0">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="panel-title mb-2">
                             <i class="fas fa-microscope me-2"></i>
                             Exoplanet Data Analysis Dashboard
                         </h2>
-                        <p class="panel-subtitle mb-0">Real-time visualization of NASA KOI dataset</p>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <div class="data-status">
-                            <div class="status-item">
+                        <p class="panel-subtitle mb-3">Real-time visualization of NASA KOI dataset</p>
+                        <div class="data-status-centered">
+                            <div class="status-line">
                                 <span class="status-label">Data Source:</span>
                                 <span class="status-value">NASA Kepler Archive</span>
                             </div>
-                            <div class="status-item">
+                            <div class="status-line">
                                 <span class="status-label">Last Updated:</span>
                                 <span class="status-value">2025-10-05</span>
                             </div>
@@ -272,6 +275,65 @@
                 </div>
             </div>
 
+            <!-- AI Engine Section -->
+            <div id="aiEngineSection" class="ai-engine-section" style="display: none;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 text-center">
+                            <div class="ai-engine-card">
+                                <div class="ai-icon-container">
+                                    <div class="ai-icon">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <div class="ai-pulse-rings">
+                                        <div class="pulse-ring ring-1"></div>
+                                        <div class="pulse-ring ring-2"></div>
+                                        <div class="pulse-ring ring-3"></div>
+                                    </div>
+                                </div>
+
+                                <h2 class="ai-title">
+                                    S'kaiNet Neural Classification Engine
+                                </h2>
+
+                                <p class="ai-description">
+                                    Advanced ensemble machine learning pipeline featuring XGBoost, Random Forest,
+                                    and deep neural networks. Our AI engine analyzes orbital mechanics,
+                                    photometric signatures, and stellar characteristics to achieve 92% accuracy
+                                    in exoplanet detection and classification.
+                                </p>
+
+                                <div class="ai-metrics">
+                                    <div class="metric-item">
+                                        <span class="metric-value">92%</span>
+                                        <span class="metric-label">Classification Accuracy</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-value">15ms</span>
+                                        <span class="metric-label">Inference Time</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-value">47</span>
+                                        <span class="metric-label">Feature Variables</span>
+                                    </div>
+                                </div>
+
+                                <div class="ai-actions">
+                                    <a href="https://skainetai.vercel.app/" class="btn btn-ai-primary btn-lg" target="_blank">
+                                        <i class="fas fa-rocket me-2"></i>
+                                        Launch AI Engine
+                                    </a>
+                                    <a href="https://github.com/jemshit/NASA_exoplanet_detection/tree/main/machine_learning/app/" class="btn btn-outline-ai btn-lg" target="_blank">
+                                        <i class="fas fa-file-code me-2"></i>
+                                        View Algorithm
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Visualizations Grid -->
             <div id="chartsSection" class="charts-section" style="display: none;">
                 <!-- Primary Analysis Charts -->
@@ -283,7 +345,7 @@
                         </h3>
                         <p class="category-description">Core statistical analysis of exoplanet classifications and distributions</p>
                     </div>
-                    
+
                     <div class="row g-4">
                         <!-- Classification Distribution -->
                         <div class="col-lg-6">
@@ -384,7 +446,7 @@
                         </h3>
                         <p class="category-description">Advanced multi-dimensional analysis and feature relationships</p>
                     </div>
-                    
+
                     <div class="row g-4">
                         <!-- Orbital Period vs Planet Radius -->
                         <div class="col-12">
@@ -463,7 +525,7 @@
                         </h3>
                         <p class="category-description">Specialized analysis for planetary detection and system characteristics</p>
                     </div>
-                    
+
                     <div class="row g-4">
                         <!-- Detectability Analysis -->
                         <div class="col-lg-6">
@@ -564,7 +626,7 @@
                         </h3>
                         <p class="category-description">Mathematical relationships and feature correlations in the dataset</p>
                     </div>
-                    
+
                     <div class="row g-4">
                         <!-- Log-scale Comparisons -->
                         <div class="col-12">
@@ -632,14 +694,11 @@
                         <p>Jemshit Iskanderov • Nurmyrat Amanmadov<br>
                            Tarlan Abdullayev • Parahat Iljanov</p>
                         <div class="footer-links mt-3">
-                            <a href="https://github.com/jemshit/NASA_exoplanet_detection" class="me-3">
+							<a href="https://github.com/jemshit/NASA_exoplanet_detection" class="me-3" target="_blank" rel="noopener"></a>
                                 <i class="fab fa-github"></i> GitHub
                             </a>
-                            <a href="#" class="me-3">
+							<a href="https://github.com/jemshit/NASA_exoplanet_detection/blob/main/docs/README.md" class="me-3" target="_blank" rel="noopener"></a>
                                 <i class="fas fa-file-pdf"></i> Documentation
-                            </a>
-                            <a href="#">
-                                <i class="fas fa-database"></i> NASA Data
                             </a>
                         </div>
                     </div>

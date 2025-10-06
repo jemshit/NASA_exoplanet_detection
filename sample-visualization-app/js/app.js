@@ -51,7 +51,7 @@ async function initializeVisualization() {
 		createCorrelationMatrix();
 
 		showContent();
-		
+
 		// Force resize all Plotly charts after a short delay to ensure proper rendering
 		setTimeout(() => {
 			['scatterPlot', 'temperaturePlot', 'transitDepthPlot', 'detectabilityPlot', 'logScalePlot', 'correlationMatrix'].forEach(plotId => {
@@ -417,7 +417,7 @@ function createScatterPlot() {
 	};
 
 	const config = {
-		responsive: true, 
+		responsive: true,
 		displayModeBar: true,
 		toImageButtonOptions: {
 			format: 'png',
@@ -429,7 +429,7 @@ function createScatterPlot() {
 	};
 
 	Plotly.newPlot('scatterPlot', traces, layout, config);
-	
+
 	// Force resize after plot creation
 	setTimeout(() => {
 		Plotly.Plots.resize('scatterPlot');
@@ -460,8 +460,8 @@ function createTemperaturePlot() {
 			type: 'scatter',
 			name: disposition,
 			text: filteredData.map(d => `${d.kepoi_name || 'Unknown'}<br>Classification: ${d.koi_disposition}<br>Stellar Temp: ${d.koi_steff}K<br>Planet Temp: ${d.koi_teq}K`),
-			marker: { 
-				color: disposition === 'CONFIRMED' ? colors.confirmed : 
+			marker: {
+				color: disposition === 'CONFIRMED' ? colors.confirmed :
 					   disposition === 'CANDIDATE' ? colors.candidate : colors.falsepositv,
 				size: 8,
 				opacity: 0.8
@@ -499,7 +499,7 @@ function createTemperaturePlot() {
 	};
 
 	const config = {
-		responsive: true, 
+		responsive: true,
 		displayModeBar: true,
 		toImageButtonOptions: {
 			format: 'png',
@@ -511,7 +511,7 @@ function createTemperaturePlot() {
 	};
 
 	Plotly.newPlot('temperaturePlot', traces, layout, config);
-	
+
 	// Force resize after plot creation
 	setTimeout(() => {
 		Plotly.Plots.resize('temperaturePlot');
@@ -1192,6 +1192,7 @@ function showContent() {
 	document.getElementById('loadingState').style.display = 'none';
 	document.getElementById('errorState').style.display = 'none';
 	document.getElementById('statsSection').style.display = 'block';
+	document.getElementById('aiEngineSection').style.display = 'block';
 	document.getElementById('chartsSection').style.display = 'block';
 }
 
