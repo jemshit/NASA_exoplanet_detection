@@ -4,7 +4,7 @@ import type { UploadedFile, Parameters, AnalysisResult } from '../types';
 import { defaultParameters } from '../types';
 
 // API Configuration
-const API_BASE_URL = 'http://localhost:5005';
+const API_BASE_URL = import.meta.env.PROD ? 'https://nasaexoplanetdetection-production.up.railway.app' : 'http://localhost:5005';
 
 interface AppContextType {
   uploadedFile: UploadedFile | null;
