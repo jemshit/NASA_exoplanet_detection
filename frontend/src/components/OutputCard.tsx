@@ -1,11 +1,8 @@
-import { useState } from 'react';
 import {
   Card,
   CardHeader,
   CardBody,
   Button,
-  Tabs,
-  Tab,
   Chip,
   Switch,
   Dropdown,
@@ -13,35 +10,32 @@ import {
   DropdownMenu,
   DropdownItem,
 } from '@heroui/react';
-import type { AnalysisResult, UploadedFile } from '../types';
-import { SummaryTab } from './output/SummaryTab';
-import { PhaseFoldTab } from './output/PhaseFoldTab';
-import { ExplainabilityTab } from './output/ExplainabilityTab';
-import { JSONTab } from './output/JSONTab';
+import type { AnalysisResult, BatchAnalysisResult, UploadedFile } from '../types';
+import { BatchResultsCard } from './output/batch';
 
 interface OutputCardProps {
   result: AnalysisResult | null;
+  batchResult: BatchAnalysisResult | null;
   uploadedFile: UploadedFile | null;
   onReset: () => void;
   demoMode?: boolean;
   onDemoModeChange?: (enabled: boolean) => void;
-  onDemoExampleChange?: (example: 'lgbm' | 'cnn') => void;
 }
 
 export function OutputCard({
   result,
+  batchResult,
   uploadedFile: _uploadedFile,
   onReset,
   demoMode = false,
   onDemoModeChange,
-  onDemoExampleChange,
 }: OutputCardProps) {
-  const [currentExample, setCurrentExample] = useState<'lgbm' | 'cnn'>('lgbm');
 
   // Helper to download JSON
   const handleDownloadJson = () => {
-    if (!result) return;
-    const dataStr = JSON.stringify(result, null, 2);
+    const data = batchResult || result;
+    if (!data) return;
+    const dataStr = JSON.stringify(data, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -51,7 +45,7 @@ export function OutputCard({
     URL.revokeObjectURL(url);
   };
 
-  if (!result) {
+  if (!batchResult) {
     return (
       <Card className="h-full bg-surface dark:bg-dark-surface border border-border dark:border-dark-border">
         <CardHeader className="flex justify-between items-center">
@@ -104,28 +98,6 @@ export function OutputCard({
               />
             </div>
           )}
-          {demoMode && onDemoExampleChange && (
-            <Dropdown>
-              <DropdownTrigger>
-                <Button size="sm" variant="flat" color="success">
-                  {currentExample}
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Demo examples"
-                selectionMode="single"
-                selectedKeys={[currentExample]}
-                onSelectionChange={(keys) => {
-                  const selected = Array.from(keys)[0] as 'lgbm' | 'cnn';
-                  setCurrentExample(selected);
-                  onDemoExampleChange(selected);
-                }}
-              >
-                <DropdownItem key="lgbm">LightGBM (CONFIRMED)</DropdownItem>
-                <DropdownItem key="cnn">CNN (FALSE_POSITIVE)</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          )}
           <Button size="sm" variant="flat" color="danger" onPress={onReset}>
             Reset
           </Button>
@@ -149,20 +121,7 @@ export function OutputCard({
         </div>
       </CardHeader>
       <CardBody>
-        <Tabs aria-label="Output tabs" className="w-full">
-          <Tab key="summary" title="Summary">
-            <SummaryTab result={result} />
-          </Tab>
-          <Tab key="phasefold" title="Phase-Fold">
-            <PhaseFoldTab plots={result.plots} />
-          </Tab>
-          <Tab key="explain" title="Explainability">
-            <ExplainabilityTab explain={result.explain} />
-          </Tab>
-          <Tab key="json" title="JSON">
-            <JSONTab result={result} />
-          </Tab>
-        </Tabs>
+        <BatchResultsCard result={batchResult} />
       </CardBody>
     </Card>
   );

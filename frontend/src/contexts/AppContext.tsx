@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import type { UploadedFile, Parameters, AnalysisResult } from '../types';
+import type { UploadedFile, Parameters, AnalysisResult, BatchAnalysisResult } from '../types';
 import { defaultParameters } from '../types';
 
 // API Configuration
@@ -11,6 +11,7 @@ interface AppContextType {
   parameters: Parameters;
   analyzing: boolean;
   result: AnalysisResult | null;
+  batchResult: BatchAnalysisResult | null;
   demoMode: boolean;
   userSessionId: string;
   error: string | null;
@@ -24,7 +25,6 @@ interface AppContextType {
   handleCancel: () => void;
   handleReset: () => void;
   handleDemoModeChange: (enabled: boolean) => void;
-  handleDemoExampleChange: (example: 'lgbm' | 'cnn') => void;
   handleViewDemo: () => void;
 }
 
@@ -49,6 +49,7 @@ export function AppProvider({ children }: AppProviderProps) {
   const [parameters, setParameters] = useState<Parameters>(defaultParameters);
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [batchResult, setBatchResult] = useState<BatchAnalysisResult | null>(null);
   const [demoMode, setDemoMode] = useState(false);
   const [userSessionId, setUserSessionId] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -61,6 +62,7 @@ export function AppProvider({ children }: AppProviderProps) {
   const handleFileUpload = (file: UploadedFile) => {
     setUploadedFile(file);
     setResult(null);
+    setBatchResult(null);
     setDemoMode(false);
     setError(null);
   };
@@ -97,23 +99,15 @@ export function AppProvider({ children }: AppProviderProps) {
   const handleDemoModeChange = (enabled: boolean) => {
     setDemoMode(enabled);
     if (enabled) {
-      // Import mock data dynamically to avoid circular dependencies
-      import('../data/mockData').then(({ mockLightGBM }) => {
-        setResult(mockLightGBM);
+      // Import mock batch data
+      import('../data/mockData').then(({ mockBatchResult }) => {
+        setBatchResult(mockBatchResult);
+        setResult(null);
       });
     } else {
       setResult(null);
+      setBatchResult(null);
     }
-  };
-
-  const handleDemoExampleChange = (example: 'lgbm' | 'cnn') => {
-    import('../data/mockData').then(({ mockLightGBM, mockCNN }) => {
-      if (example === 'lgbm') {
-        setResult(mockLightGBM);
-      } else {
-        setResult(mockCNN);
-      }
-    });
   };
 
   const handleAnalyze = async () => {
@@ -124,6 +118,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
     setAnalyzing(true);
     setResult(null);
+    setBatchResult(null);
     setDemoMode(false);
     setError(null);
 
@@ -169,26 +164,28 @@ export function AppProvider({ children }: AppProviderProps) {
         body: predictFormData,
       });
 
-      const predictResult = await predictResponse.json();
+      const predictResponseData = await predictResponse.json();
+      console.log('Prediction completed:', predictResponseData);
 
-      if (!predictResponse.ok || predictResult.status === 'error') {
-        const errorMsg = predictResult.message || 'Prediction failed';
+      const predictResult = predictResponseData?.results ?? {};
+
+      if (predictResponseData?.status === 'error') {
+        const errorMsg = predictResponseData.message || 'Prediction failed';
         setError(`Prediction Error: ${errorMsg}`);
-        
-        // Show trace if available
-        if (predictResult.trace) {
-          console.error('Prediction trace:', predictResult.trace);
-        }
-        
-        throw new Error(errorMsg);
       }
 
-      console.log('Prediction completed:', predictResult);
+      console.log('predictResult', predictResult);
 
-      // Set results (for now using mock data, replace with predictResult.results when backend is ready)
-      const { mockLightGBM, mockCNN } = await import('../data/mockData');
-      const mockResults = [mockLightGBM, mockCNN];
-      setResult(mockResults[Math.floor(Math.random() * mockResults.length)]);
+      // Check if result is batch or single prediction
+      if (predictResult.row_results && predictResult.decoded_predictions) {
+        // Batch result
+        setBatchResult(predictResult as BatchAnalysisResult);
+        setResult(null);
+      } else {
+        // Single prediction result
+        setResult(predictResult as AnalysisResult);
+        setBatchResult(null);
+      }
 
     } catch (error) {
       console.error('Analysis error:', error);
@@ -209,15 +206,17 @@ export function AppProvider({ children }: AppProviderProps) {
   const handleReset = () => {
     setUploadedFile(null);
     setResult(null);
+    setBatchResult(null);
     setDemoMode(false);
     setError(null);
   };
 
   const handleViewDemo = () => {
     setDemoMode(true);
-    // Load mock data
-    import('../data/mockData').then(({ mockLightGBM }) => {
-      setResult(mockLightGBM);
+    // Load mock batch data
+    import('../data/mockData').then(({ mockBatchResult }) => {
+      setBatchResult(mockBatchResult);
+      setResult(null);
     });
   };
 
@@ -226,6 +225,7 @@ export function AppProvider({ children }: AppProviderProps) {
     parameters,
     analyzing,
     result,
+    batchResult,
     demoMode,
     userSessionId,
     error,
@@ -239,7 +239,6 @@ export function AppProvider({ children }: AppProviderProps) {
     handleCancel,
     handleReset,
     handleDemoModeChange,
-    handleDemoExampleChange,
     handleViewDemo,
   };
 

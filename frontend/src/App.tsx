@@ -10,6 +10,7 @@ function App() {
     parameters,
     analyzing,
     result,
+    batchResult,
     demoMode,
     error,
     setError,
@@ -19,9 +20,10 @@ function App() {
     handleCancel,
     handleReset,
     handleDemoModeChange,
-    handleDemoExampleChange,
     handleViewDemo,
   } = useApp();
+
+  const hasResults = result || batchResult;
 
   return (
     <div className="min-h-screen bg-background dark:bg-dark-background">
@@ -58,7 +60,7 @@ function App() {
         <div className="flex flex-col lg:flex-row justify-center gap-6">
           {/* Left Column - Hide when in demo mode */}
           {!demoMode && (
-            <div className={`w-full ${result ? 'lg:w-3/12' : 'lg:w-6/12'} self-center`}>
+            <div className={`w-full ${hasResults ? 'lg:w-3/12' : 'lg:w-6/12'}`}>
               <InputCard
                 uploadedFile={uploadedFile}
                 onFileUpload={handleFileUpload}
@@ -73,15 +75,15 @@ function App() {
           )}
 
           {/* Right Column - Only show after analysis is complete */}
-          {result && (
+          {hasResults && (
             <div className={`w-full ${demoMode ? 'lg:w-full' : 'lg:w-9/12'}`}>
               <OutputCard
                 result={result}
+                batchResult={batchResult}
                 uploadedFile={uploadedFile}
                 onReset={handleReset}
                 demoMode={demoMode}
                 onDemoModeChange={handleDemoModeChange}
-                onDemoExampleChange={handleDemoExampleChange}
               />
             </div>
           )}
