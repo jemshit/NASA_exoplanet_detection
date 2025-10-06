@@ -159,6 +159,8 @@ def train_multistep_nn_xgb(
             multistep_pred[idx] = planet_preds[p2_pos]
 
     multistep_acc = accuracy_score(y_encoded, multistep_pred)
+    overall_p_weighted = precision_score(y_encoded, multistep_pred, average="weighted", zero_division=0)
+    overall_r_weighted = recall_score(y_encoded, multistep_pred, average="weighted", zero_division=0)
     warnings.filterwarnings("default", category=RuntimeWarning)
 
     # ==========================================================
@@ -168,6 +170,8 @@ def train_multistep_nn_xgb(
     print("MULTI-STEP PIPELINE RESULTS")
     print("=" * 60)
     print(f"Overall Accuracy: {multistep_acc:.4f}")
+    print(f"Overall Precision: {overall_p_weighted:.4f}")
+    print(f"Overall Recall: {overall_r_weighted:.4f}")
 
     print("\nClassification Report:")
     print(classification_report(y_encoded, multistep_pred, target_names=le_target.classes_))
@@ -176,7 +180,7 @@ def train_multistep_nn_xgb(
     print(f"Multi-step NN→XGBoost: {multistep_acc:.4f}")
 
     metrics_summary = {
-        "accuracy": acc,
+        "accuracy": multistep_acc,
         "stage1_recall": recall_score(((y_encoded == 0) | (y_encoded == 1)).astype(int), stage1_oof_pred),
         "stage1_precision": precision_score(((y_encoded == 0) | (y_encoded == 1)).astype(int), stage1_oof_pred),
         "stage2_accuracy": accuracy_score(y_planets, stage2_oof_pred),
