@@ -2,6 +2,7 @@ export interface UploadedFile {
   name: string;
   size: number;
   hash: string;
+  file: File;
   validation: {
     time: boolean;
     flux: boolean;
@@ -10,7 +11,7 @@ export interface UploadedFile {
 }
 
 export interface Parameters {
-  model_type: 'ensemble' | 'binary_categories' | 'multistep';
+  model_type: 'multistep'| 'binary_categories' | 'ensemble' ;
   class_weight_penalizing: boolean;
   drop_fpflags: boolean;
 }
@@ -56,7 +57,7 @@ export interface AnalysisResult {
 }
 
 export const defaultParameters: Parameters = {
-  model_type: 'ensemble',
+  model_type: 'multistep',
   class_weight_penalizing: false,
   drop_fpflags: false,
 };

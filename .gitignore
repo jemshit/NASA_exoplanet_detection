@@ -365,3 +365,4 @@ pip-selfcheck.json
 
 machine_learning/outputs/*
 machine_learning/app/catboost_info/*
+machine_learning/catboost_info

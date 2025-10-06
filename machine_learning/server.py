@@ -1,11 +1,14 @@
 import sys
 import os
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'app'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'controllers'))
 
 import app as ml_app
 from app import ensemble_pipeline, binary_categories_pipeline, multistep_pipeline
+from controllers import train, predict_controller, validate_csv
 
 # Paths to work from machine_learning directory
 base_dir = os.path.dirname(__file__)
@@ -16,6 +19,7 @@ ml_app.OUTPUT_FOLDER = os.path.join(base_dir, "outputs") + "/"
 os.makedirs(ml_app.OUTPUT_FOLDER, exist_ok=True)
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for frontend communication
 
 @app.route('/')
 def home():
@@ -24,7 +28,10 @@ def home():
         "endpoints": [
             "/ensemble",
             "/binary",
-            "/multistep"
+            "/multistep",
+            "POST /train",
+            "POST /predict",
+            "POST /validate-csv"
         ]
     })
 
@@ -54,6 +61,21 @@ def run_multistep():
         return jsonify({"status": "success", "message": "Multistep pipeline completed"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/train', methods=['POST'])
+def train_route():
+    return train()
+
+
+@app.route('/predict', methods=['POST'])
+def predict_route():
+    return predict_controller()
+
+
+@app.route('/validate-csv', methods=['POST'])
+def validate_csv_route():
+    return validate_csv()
 
 
 if __name__ == '__main__':

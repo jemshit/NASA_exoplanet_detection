@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
-import { Card, CardHeader, CardBody, Button, Chip, Select, SelectItem, Switch, Divider } from '@heroui/react';
+import { Card, CardHeader, CardBody, Button, Chip, Select, SelectItem, Switch, Divider, Spinner } from '@heroui/react';
 import type { UploadedFile, Parameters } from '../types';
+import { useApp } from '../contexts/AppContext';
 
 interface InputCardProps {
   uploadedFile: UploadedFile | null;
@@ -23,8 +24,11 @@ export function InputCard({
 }: InputCardProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [validating, setValidating] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const { handleValidateCSV } = useApp();
 
-  const handleFileUpload = (file: File) => {
+  const handleFileUpload = async (file: File) => {
     const validExtensions = ['.csv'];
     const ext = '.' + file.name.split('.').pop()?.toLowerCase();
 
@@ -33,16 +37,38 @@ export function InputCard({
       return;
     }
 
-    onFileUpload({
-      name: file.name,
-      size: file.size,
-      hash: 'sha256:' + Math.random().toString(36).substring(2, 15),
-      validation: {
-        time: true,
-        flux: true,
-        flux_err: true,
-      },
-    });
+    // Validate CSV before uploading
+    setValidating(true);
+    setValidationError(null);
+
+    try {
+      const validationResult = await handleValidateCSV(file);
+      
+      if (validationResult.status === 'error') {
+        setValidationError(validationResult.message);
+        return;
+      }
+
+      // Validation passed
+      setValidationError(null);
+      onFileUpload({
+        name: file.name,
+        size: file.size,
+        hash: 'sha256:' + Math.random().toString(36).substring(2, 15),
+        file: file,
+        validation: {
+          time: true,
+          flux: true,
+          flux_err: true,
+        },
+      });
+    } catch (error) {
+      console.error('Validation error:', error);
+      setValidationError('Failed to validate CSV file');
+      alert('Failed to validate CSV file. Please try again.');
+    } finally {
+      setValidating(false);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -59,12 +85,24 @@ export function InputCard({
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files[0];
-    if (file) handleFileUpload(file);
+    if (file) {
+      handleFileUpload(file);
+      // Reset input value to allow selecting the same file again
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) handleFileUpload(file);
+    if (file) {
+      handleFileUpload(file);
+      // Reset input value to allow selecting the same file again
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const updateParameter = <K extends keyof Parameters>(
@@ -105,49 +143,52 @@ export function InputCard({
                 className="hidden"
               />
               <div className="space-y-4">
-                <p className="text-secondary-text dark:text-dark-secondary-text">
-                  Drag & drop your file here
-                </p>
-                <Button
-                  className="bg-accent dark:bg-dark-accent hover:bg-accent-hover dark:hover:bg-dark-accent-hover text-white"
-                  onPress={() => fileInputRef.current?.click()}
-                >
-                  Browse Files
-                </Button>
-                <p className="text-xs text-disabled dark:text-dark-disabled">Accepts: .csv</p>
+                {validating ? (
+                  <>
+                    <Spinner size="lg" color="primary" />
+                    <p className="text-secondary-text dark:text-dark-secondary-text">
+                      Validating CSV file...
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-secondary-text dark:text-dark-secondary-text">
+                      Drag & drop your file here
+                    </p>
+                    <Button
+                      className="bg-accent dark:bg-dark-accent hover:bg-accent-hover dark:hover:bg-dark-accent-hover text-white"
+                      onPress={() => fileInputRef.current?.click()}
+                      isDisabled={validating}
+                    >
+                      Browse Files
+                    </Button>
+                    <p className="text-xs text-disabled dark:text-dark-disabled">Accepts: .csv with Kepler KOI format</p>
+                  </>
+                )}
               </div>
             </div>
 
+            {validationError && (
+              <div className="mt-4 p-3 bg-danger/10 border border-danger rounded-lg">
+                <p className="text-sm text-danger">{validationError}</p>
+              </div>
+            )}
+
             {uploadedFile && (
-              <div className="space-y-2">
+              <div className="mt-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="font-medium text-primary-text dark:text-dark-primary-text">{uploadedFile.name}</span>
                   <span className="text-secondary-text dark:text-dark-secondary-text">
                     {(uploadedFile.size / 1024).toFixed(1)} KB
                   </span>
                 </div>
-                <p className="text-xs text-disabled dark:text-dark-disabled font-mono">{uploadedFile.hash}</p>
-                <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-2 items-center">
                   <Chip
-                    color={uploadedFile.validation.time ? 'success' : 'danger'}
+                    color="success"
                     size="sm"
                     variant="flat"
                   >
-                    time ✓
-                  </Chip>
-                  <Chip
-                    color={uploadedFile.validation.flux ? 'success' : 'danger'}
-                    size="sm"
-                    variant="flat"
-                  >
-                    flux ✓
-                  </Chip>
-                  <Chip
-                    color={uploadedFile.validation.flux_err ? 'success' : 'danger'}
-                    size="sm"
-                    variant="flat"
-                  >
-                    flux_err ✓
+                    ✓ Validated
                   </Chip>
                 </div>
               </div>
@@ -166,14 +207,14 @@ export function InputCard({
                 updateParameter('model_type', e.target.value as 'ensemble' | 'binary_categories' | 'multistep')
               }
             >
-              <SelectItem key="ensemble">
-                Ensemble
-              </SelectItem>
               <SelectItem key="binary_categories">
-                Binary Categories
+                Binary Categories (Light)
               </SelectItem>
               <SelectItem key="multistep">
-                Multistep
+                Multistep (Medium)
+              </SelectItem>
+              <SelectItem key="ensemble">
+                Ensemble (Heavy)
               </SelectItem>
             </Select>
 
@@ -189,6 +230,7 @@ export function InputCard({
             <Switch
               isSelected={parameters.drop_fpflags}
               onValueChange={(value) => updateParameter('drop_fpflags', value)}
+              className="ml-4"
             >
               <span className="text-sm text-primary-text dark:text-dark-primary-text">
                 Drop FP Flags

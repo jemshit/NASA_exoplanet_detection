@@ -135,11 +135,21 @@ def multistep_pipeline(input_rows: list[Dict] = None, drop_fpflags: bool = True)
     )
 
 
-def predict(dataset_path: str | None, input_rows: list[Dict], model_path: str):
+def predict(dataset_path: str | None, input_rows: list[Dict], model_path: str, drop_fpflags: bool = True):
+    print(f"\n=== PREDICT FUNCTION ===")
+    print(f"Input rows count: {len(input_rows) if input_rows else 0}")
+    print(f"Dataset path: {dataset_path}")
+    
     df_raw = load_koi_dataset(path=dataset_path, input_rows=input_rows, sep=",",
                               target_column=TARGET_COLUMN, verbose=False)
-    df_clean = clean_koi_dataset(df_raw, drop_fpflags=True)
+    print(f"Raw data shape: {df_raw.shape}")
+    print(f"Raw data columns: {len(df_raw.columns)}")
+    
+    df_clean = clean_koi_dataset(df_raw, drop_fpflags=drop_fpflags)
+    print(f"Clean data shape: {df_clean.shape}")
+    
     df_engineered = create_advanced_features(df_clean)
+    print(f"Engineered data shape: {df_engineered.shape}")
 
     # Load the expected feature list from training
     with open(OUTPUT_FOLDER + "features.json", "r") as f:
@@ -167,6 +177,8 @@ def predict(dataset_path: str | None, input_rows: list[Dict], model_path: str):
     print(results["metrics"])
     print(results["model_info"])
     print(results["row_results"][:3])
+    
+    return results
 
 
 # input_row always needs to be trained by appending to existing data,
