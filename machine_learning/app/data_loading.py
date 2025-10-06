@@ -37,48 +37,20 @@ def load_koi_dataset(
     if not path and not input_rows:
         raise ValueError("Either path or input_rows should be provided.")
 
-    # Load from path if provided
-    if path:
-        df = pd.read_csv(path, sep=sep)
-        if verbose:
-            print(f"✅ Dataset loaded from: {path}")
-            print(f"📦 Shape: {df.shape[0]:,} rows × {df.shape[1]:,} columns")
-    else:
-        # Create DataFrame from input_rows directly
-        if input_rows:
-            try:
-                print(f"Creating DataFrame from {len(input_rows)} input rows...")
-                print(f"Sample row keys count: {len(input_rows[0].keys()) if input_rows else 0}")
-                
-                # Check for any problematic data
-                sample_keys = list(input_rows[0].keys())[:5] if input_rows else []
-                print(f"Sample keys: {sample_keys}")
-                
-                df = pd.DataFrame(input_rows)
-                
-                print(f"✅ Created dataset from {len(input_rows)} input rows")
-                print(f"   Shape: {df.shape}")
-                print(f"   Columns: {len(df.columns)}")
-                if verbose:
-                    print(f"   First 5 columns: {list(df.columns)[:5]}")
-            except Exception as e:
-                print(f"❌ Error creating DataFrame from input_rows: {e}")
-                print(f"   Error type: {type(e).__name__}")
-                print(f"   Number of input rows: {len(input_rows) if input_rows else 0}")
-                if input_rows:
-                    print(f"   First row type: {type(input_rows[0])}")
-                    print(f"   First row keys count: {len(input_rows[0].keys())}")
-                    print(f"   First row sample: {dict(list(input_rows[0].items())[:3])}")
-                raise
-        else:
-            df = pd.DataFrame()
+    df = pd.read_csv(path, sep=sep) if path else pd.DataFrame()
 
-    # Append additional input_rows if both path and input_rows provided
-    if path and input_rows:
+    # Basic info
+    if path and verbose:
+        print(f"✅ Dataset loaded from: {path}")
+        print(f"📦 Shape: {df.shape[0]:,} rows × {df.shape[1]:,} columns")
+        # 9,566 rows × 50 columns
+
+    if input_rows:
         df_new = pd.DataFrame(input_rows)
         df = pd.concat([df, df_new], ignore_index=True)
-        if verbose:
-            print(f"✅ Appended {len(df_new)} new rows to dataset")
+
+        if input_rows and verbose:
+            print(f"✅ Appended {len(df_new)} new rows to raw dataset before cleaning.")
 
     # Optional: only print column names if small enough
     if verbose:
