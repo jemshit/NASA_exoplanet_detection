@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="S'kaiNet — Exoplanet analyzer is an AI-powered exoplanet detection system developed for the 2025 NASA Space Apps Challenge. Inspired by Star Trek’s Vulcan pursuit of knowledge — “S'kai”, meaning enlightenment — our project combines scientific curiosity with artificial intelligence to identify exoplanets from NASA’s open datasets.">
-    <title>S`kaiNet Exoplanet Analyzer</title>
+    <title>S'kaiNet Exoplanet Analyzer | NASA Space Apps Challenge 2025</title>
 		<link rel="icon" type="image/png" href="../frontend/public/assets/images/fav.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -23,239 +31,628 @@
 	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+    <!-- Animated Star Field Background -->
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">🚀 S`kaiNet - Exoplanet analyzer</a>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-satellite-dish me-2"></i>
+                <span class="brand-text">S'kaiNet</span>
+                <span class="brand-subtitle ms-2">Exoplanet Analyzer</span>
+            </a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#overview">
+                            <i class="fas fa-home me-1"></i>Overview
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#visualizations">
+                            <i class="fas fa-chart-area me-1"></i>Data Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#mission">
+                            <i class="fas fa-rocket me-1"></i>Mission
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <div class="nav-item mission-status">
+                        <span class="status-indicator online"></span>
+                        <span class="status-text">System Online</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero-section" id="overview">
-        <div class="container">
-            <h1 class="hero-title">Exoplanet Data Visualization</h1>
-            <p class="hero-subtitle">
-                Interactive visualization of NASA's Kepler Objects of Interest (KOI) dataset,
-                showcasing confirmed exoplanets, planetary candidates, and false positives.
-            </p>
+    <section class="hero-section" id="overview">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row align-items-center min-vh-100">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <div class="hero-badge mb-4">
+                            <i class="fas fa-award me-2"></i>
+                            NASA Space Apps Challenge 2025
+                        </div>
+                        
+                        <h1 class="hero-title mb-4">
+                            S'kaiNet
+                            <span class="hero-subtitle-inline">Exoplanet Discovery Platform</span>
+                        </h1>
+                        
+                        <p class="hero-description mb-5">
+                            Advanced AI-powered analysis of NASA's Kepler, K2, and TESS mission data.
+                            Automated detection and classification of exoplanets, planetary candidates, and false positives
+                            using cutting-edge machine learning algorithms.
+                        </p>
+                        
+                        <div class="hero-stats row text-center mb-5">
+                            <div class="col-md-3 col-6">
+                                <div class="stat-item">
+                                    <div class="stat-number" id="heroTotalObjects">---</div>
+                                    <div class="stat-label">Objects Analyzed</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="stat-item">
+                                    <div class="stat-number" id="heroConfirmed">---</div>
+                                    <div class="stat-label">Confirmed Exoplanets</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="stat-item">
+                                    <div class="stat-number" id="heroCandidates">---</div>
+                                    <div class="stat-label">Planet Candidates</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="stat-item">
+                                    <div class="stat-number">92%</div>
+                                    <div class="stat-label">AI Accuracy</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="hero-actions">
+                            <a href="#visualizations" class="btn btn-primary btn-lg me-3">
+                                <i class="fas fa-chart-line me-2"></i>Explore Data
+                            </a>
+                            <a href="#mission" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-info-circle me-2"></i>Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Mission Info Section -->
+    <section id="mission" class="mission-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="section-title mb-4">
+                        <i class="fas fa-satellite me-3"></i>
+                        Mission Overview
+                    </h2>
+                    <p class="section-description">
+                        Inspired by Star Trek's Vulcan pursuit of knowledge — "S'kai" meaning enlightenment — 
+                        our project combines scientific curiosity with artificial intelligence to identify exoplanets 
+                        from NASA's open datasets.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Data Processing</h3>
+                        <p>Advanced preprocessing and normalization of datasets from Kepler, K2, and TESS missions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI Detection</h3>
+                        <p>Machine learning models trained on NASA's open-source datasets for automated exoplanet classification.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                        <h3>Visualization</h3>
+                        <p>Interactive data visualization and real-time analysis for scientific discovery and exploration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Main Content -->
-    <div class="container" id="visualizations">
-        <!-- Loading State -->
-        <div id="loadingState" class="loading">
-            <div class="spinner-border me-3" role="status"></div>
-            Loading dataset and generating visualizations...
-        </div>
+    <main class="main-content" id="visualizations">
+        <div class="container-fluid px-4">
+            <!-- Data Control Panel -->
+            <div class="control-panel mb-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="panel-title mb-0">
+                            <i class="fas fa-microscope me-2"></i>
+                            Exoplanet Data Analysis Dashboard
+                        </h2>
+                        <p class="panel-subtitle mb-0">Real-time visualization of NASA KOI dataset</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="data-status">
+                            <div class="status-item">
+                                <span class="status-label">Data Source:</span>
+                                <span class="status-value">NASA Kepler Archive</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Last Updated:</span>
+                                <span class="status-value">2025-10-05</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Error State -->
-        <div id="errorState" class="error-message" style="display: none;">
-            <h5>⚠️ Error Loading Dataset</h5>
-            <p id="errorMessage">Unable to load the dataset. Please check the file path and try again.</p>
-        </div>
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="loading-content">
+                    <div class="loading-animation">
+                        <div class="spinner"></div>
+                        <div class="loading-rings">
+                            <div class="ring ring1"></div>
+                            <div class="ring ring2"></div>
+                            <div class="ring ring3"></div>
+                        </div>
+                    </div>
+                    <h3>Initializing S'kaiNet Systems</h3>
+                    <p>Loading NASA exoplanet dataset and generating visualizations...</p>
+                    <div class="loading-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Statistics Overview -->
-        <div id="statsSection" style="display: none;">
-            <h2 class="text-center mb-4">📊 Dataset Overview</h2>
-            <div class="stats-grid" id="statsGrid">
-                <!-- Stats will be populated by JavaScript -->
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <div class="error-content">
+                    <div class="error-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>System Error Detected</h3>
+                    <p id="errorMessage">Unable to establish connection with NASA data archive. Please verify system status and try again.</p>
+                    <button class="btn btn-outline-light" onclick="location.reload()">
+                        <i class="fas fa-redo me-2"></i>Retry Connection
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Overview -->
+            <div id="statsSection" class="stats-section" style="display: none;">
+                <div class="section-header text-center mb-5">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-pie me-3"></i>
+                        Dataset Overview & Metrics
+                    </h2>
+                    <p class="section-description">
+                        Comprehensive analysis of NASA's Kepler Objects of Interest database
+                    </p>
+                </div>
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Stats will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Visualizations Grid -->
+            <div id="chartsSection" class="charts-section" style="display: none;">
+                <!-- Primary Analysis Charts -->
+                <div class="chart-category mb-5">
+                    <div class="category-header">
+                        <h3 class="category-title">
+                            <i class="fas fa-chart-bar me-2"></i>
+                            Primary Classification Analysis
+                        </h3>
+                        <p class="category-description">Core statistical analysis of exoplanet classifications and distributions</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <!-- Classification Distribution -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-target me-2"></i>
+                                        Exoplanet Classification Distribution
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <canvas id="classificationChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Planet Radius Distribution -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-globe me-2"></i>
+                                        Planet Radius Distribution
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <canvas id="radiusChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stellar Class Distribution -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-star me-2"></i>
+                                        Stellar Class Distribution
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <canvas id="stellarClassChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Error Analysis -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-chart-line me-2"></i>
+                                        Measurement Error Analysis
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <canvas id="errorAnalysisChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Correlations -->
+                <div class="chart-category mb-5">
+                    <div class="category-header">
+                        <h3 class="category-title">
+                            <i class="fas fa-project-diagram me-2"></i>
+                            Interactive Correlation Analysis
+                        </h3>
+                        <p class="category-description">Advanced multi-dimensional analysis and feature relationships</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <!-- Orbital Period vs Planet Radius -->
+                        <div class="col-12">
+                            <div class="chart-card chart-card-wide">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-orbit me-2"></i>
+                                        Orbital Period vs Planet Radius (Interactive)
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container-wide">
+                                        <div id="scatterPlot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stellar Temperature vs Planet Temperature -->
+                        <div class="col-12">
+                            <div class="chart-card chart-card-wide">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-thermometer-half me-2"></i>
+                                        Stellar vs Planet Temperature
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container-wide">
+                                        <div id="temperaturePlot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transit Depth Distribution -->
+                        <div class="col-12">
+                            <div class="chart-card chart-card-wide">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-search me-2"></i>
+                                        Transit Depth Analysis
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container-wide">
+                                        <div id="transitDepthPlot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Metrics -->
+                <div class="chart-category mb-5">
+                    <div class="category-header">
+                        <h3 class="category-title">
+                            <i class="fas fa-microscope me-2"></i>
+                            Advanced Detection Metrics
+                        </h3>
+                        <p class="category-description">Specialized analysis for planetary detection and system characteristics</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <!-- Detectability Analysis -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-radar-dish me-2"></i>
+                                        Planet Detectability Metrics
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <div id="detectabilityPlot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Period-Radius Ratio Analysis -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-ruler me-2"></i>
+                                        Period-Radius Ratio Distribution
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <canvas id="periodRadiusRatioChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transit Characteristics -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-moon me-2"></i>
+                                        Transit Characteristics Analysis
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <canvas id="transitCharacteristicsChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Multiplanet Systems -->
+                        <div class="col-lg-6">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-solar-panel me-2"></i>
+                                        Multiplanet System Analysis
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container">
+                                        <canvas id="multiplanetChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistical Analysis -->
+                <div class="chart-category mb-5">
+                    <div class="category-header">
+                        <h3 class="category-title">
+                            <i class="fas fa-calculator me-2"></i>
+                            Statistical & Correlation Analysis
+                        </h3>
+                        <p class="category-description">Mathematical relationships and feature correlations in the dataset</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <!-- Log-scale Comparisons -->
+                        <div class="col-12">
+                            <div class="chart-card chart-card-wide">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-chart-area me-2"></i>
+                                        Logarithmic Scale Feature Relationships
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container-wide">
+                                        <div id="logScalePlot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Correlation Matrix -->
+                        <div class="col-12">
+                            <div class="chart-card chart-card-wide">
+                                <div class="chart-header">
+                                    <div class="chart-title">
+                                        <i class="fas fa-th me-2"></i>
+                                        Feature Correlation Matrix
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <div class="chart-container-wide">
+                                        <div id="correlationMatrix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </main>
 
-        <!-- Visualizations Grid -->
-        <div id="chartsSection" style="display: none;">
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
             <div class="row">
-                <!-- Classification Distribution -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🎯 Exoplanet Classification Distribution
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="classificationChart"></canvas>
-                            </div>
-                        </div>
+                <div class="col-md-6">
+                    <div class="footer-brand">
+                        <h5>S'kaiNet Exoplanet Analyzer</h5>
+                        <p>Developed for NASA Space Apps Challenge 2025</p>
+                        <p class="mb-0">"Boldly going where no algorithm has gone before."</p>
                     </div>
                 </div>
-
-                <!-- Planet Radius Distribution -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🪐 Planet Radius Distribution
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="radiusChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Stellar Class Distribution -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            ⭐ Stellar Class Distribution
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="stellarClassChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Error Analysis -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            📊 Measurement Error Analysis
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="errorAnalysisChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Orbital Period vs Planet Radius -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🌌 Orbital Period vs Planet Radius (Interactive)
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container-wide">
-                                <div id="scatterPlot"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Stellar Temperature vs Planet Temperature -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            ⭐ Stellar vs Planet Temperature
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container-wide">
-                                <div id="temperaturePlot"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Transit Depth Distribution -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🔍 Transit Depth Analysis
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container-wide">
-                                <div id="transitDepthPlot"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Detectability Analysis -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🔬 Planet Detectability Metrics
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <div id="detectabilityPlot"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Period-Radius Ratio Analysis -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            📐 Period-Radius Ratio Distribution
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="periodRadiusRatioChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Transit Characteristics -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🌘 Transit Characteristics Analysis
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="transitCharacteristicsChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Multiplanet Systems -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🌍 Multiplanet System Analysis
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="multiplanetChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Log-scale Comparisons -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            📈 Logarithmic Scale Feature Relationships
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container-wide">
-                                <div id="logScalePlot"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Correlation Matrix -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            🔥 Feature Correlation Matrix
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container-wide">
-                                <div id="correlationMatrix"></div>
-                            </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="footer-info">
+                        <p><strong>Team Outlander</strong></p>
+                        <p>Jemshit Iskanderov • Nurmyrat Amanmadov<br>
+                           Tarlan Abdullayev • Parahat Iljanov</p>
+                        <div class="footer-links mt-3">
+                            <a href="https://github.com/jemshit/NASA_exoplanet_detection" class="me-3">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="#" class="me-3">
+                                <i class="fas fa-file-pdf"></i> Documentation
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-database"></i> NASA Data
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Enhancement Scripts -->
+    <script src="js/enhancements.js"></script>
 
     <!-- Main JavaScript -->
 	<script src="js/app.js"></script>
