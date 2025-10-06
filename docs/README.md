@@ -22,6 +22,9 @@ Inspired by *Star Trek’s* Vulcan pursuit of knowledge — **“S'kai”**, mea
 
 Our mission: To build an intelligent platform that helps humanity discover new worlds — automatically.
 
+## 🧠 Machine Learning 
+### [Documentation](../machine_learning/README.md)
+
 ---
 
 ## 🧠 The Challenge
