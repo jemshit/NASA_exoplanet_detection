@@ -27,7 +27,11 @@ Our mission: To build an intelligent platform that helps humanity discover new w
 
 ---
 
-## 🧠 The Challenge
+## 🎥 Demo
+
+[![Watch the video](https://img.youtube.com/vi/JImh88yiNAA/0.jpg)](https://www.youtube.com/watch?v=JImh88yiNAA)
+
+## The Challenge
 
 NASA’s exoplanet missions — **Kepler**, **K2**, and **TESS** — have collected massive datasets from their space surveys.
 However, most exoplanet discoveries are still **identified manually** by scientists.
@@ -153,7 +157,6 @@ This creative adaptation demonstrates how data science, storytelling, and imagin
 - 🎧 **[Listen Online](https://github.com/jemshit/NASA_exoplanet_detection/raw/main/docs/stories/skainet-chronicles.m4a)** *(Direct stream)*
 
 🎬 **Video:** [*The Exoplanet Enigma - Visual Story*](https://youtu.be/R9a3tQScMtw)
-- 📺 **[Watch on YouTube]()**
 - 🎥 **[Download Video](stories/skainet-chronicles.mp4)**
 
 📚 **Comic Con Special Edition:** [the-exoplanet-enigma.pdf](stories/the-exoplanet-enigma.pdf)
