@@ -24,7 +24,7 @@ async function initializeVisualization() {
 		showLoading(true);
 
 		// Load the engineered CSV data
-		const csvData = await loadCSV('../machine_learning/dataset/kepler_koi_engineered.csv');
+		const csvData = await loadCSV('../data/dataset-sample.csv');
 		dataset = parseCSVData(csvData);
 
 		console.log(`Loaded ${dataset.length} records from dataset`);

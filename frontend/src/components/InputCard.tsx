@@ -11,6 +11,7 @@ interface InputCardProps {
   analyzing: boolean;
   onAnalyze: () => void;
   onCancel: () => void;
+  onViewDemo: () => void;
 }
 
 export function InputCard({
@@ -21,6 +22,7 @@ export function InputCard({
   analyzing,
   onAnalyze,
   onCancel,
+  onViewDemo,
 }: InputCardProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -264,6 +266,16 @@ export function InputCard({
                 Cancel
               </Button>
             )}
+
+            <Button
+              color="default"
+              variant="flat"
+              size="lg"
+              fullWidth
+              onPress={onViewDemo}
+            >
+              View Demo
+            </Button>
           </div>
         </div>
       </CardBody>

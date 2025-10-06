@@ -20,6 +20,7 @@ function App() {
     handleReset,
     handleDemoModeChange,
     handleDemoExampleChange,
+    handleViewDemo,
   } = useApp();
 
   return (
@@ -65,6 +66,7 @@ function App() {
               analyzing={analyzing}
               onAnalyze={handleAnalyze}
               onCancel={handleCancel}
+              onViewDemo={handleViewDemo}
             />
           </div>
 

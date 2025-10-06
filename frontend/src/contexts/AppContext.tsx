@@ -25,6 +25,7 @@ interface AppContextType {
   handleReset: () => void;
   handleDemoModeChange: (enabled: boolean) => void;
   handleDemoExampleChange: (example: 'lgbm' | 'cnn') => void;
+  handleViewDemo: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -212,6 +213,10 @@ export function AppProvider({ children }: AppProviderProps) {
     setError(null);
   };
 
+  const handleViewDemo = () => {
+    setDemoMode(true);
+  };
+
   const value: AppContextType = {
     uploadedFile,
     parameters,
@@ -231,6 +236,7 @@ export function AppProvider({ children }: AppProviderProps) {
     handleReset,
     handleDemoModeChange,
     handleDemoExampleChange,
+    handleViewDemo,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
