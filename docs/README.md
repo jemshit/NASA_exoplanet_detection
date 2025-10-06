@@ -149,8 +149,8 @@ This creative adaptation demonstrates how data science, storytelling, and imagin
 - 📥 **[Download Audio](stories/skainet-chronicles.m4a)** *(Right-click → Save As)*
 - 🎧 **[Listen Online](https://github.com/jemshit/NASA_exoplanet_detection/raw/main/docs/stories/skainet-chronicles.m4a)** *(Direct stream)*
 
-🎬 **Video:** [*The Exoplanet Enigma - Visual Story*](https://youtu.be/YOUR_VIDEO_ID)
-<!-- - 📺 **[Watch on YouTube](https://youtu.be/YOUR_VIDEO_ID)** *(Coming Soon)* -->
+🎬 **Video:** [*The Exoplanet Enigma - Visual Story*](https://youtu.be/R9a3tQScMtw)
+- 📺 **[Watch on YouTube](https://youtu.be/R9a3tQScMtw)**
 - 🎥 **[Download Video](stories/skainet-chronicles.mp4)**
 
 📚 *Comic Con Special Edition:* [the-exoplanet-enigma.pdf](stories/the-exoplanet-enigma.pdf)
