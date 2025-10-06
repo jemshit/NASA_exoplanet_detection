@@ -5,31 +5,6 @@
 
 ---
 
-## Results & Performance
-* Trained on Kepler KOI dataset: 9564 valid samples
-* 67 Features: 36 existing + 31 new features
-* **Binary Model**: 
-  * Default: 95.3% Accuracy , 92.1% Recall, 92.7% Precision
-  * Planet Detection (CONFIRMED + CANDIDATE): 96.7% Recall, 96.4% Precision
-* **Multistep Model (MLP + XGBoost)**: 
-  * Default: 88% Accuracy, 88% Recall, 87.5% Precision
-  * `drop_fpflags=False`: 91.2% Accuracy, 91.2% Recall, 91.1% Precision
-* **Ensemble Model**:
-  * XGBoost default: 78% Accuracy, 78% Recall, 78.2% Precision, 91.9% Train Accuracy
-  * XGBoost `class_weight_penalizing=False`: 78.7% Accuracy, 78.6% Recall, 77.6% Precision, 91.8% Train Accuracy
-  * XGBoost `drop_fpflags=False`: 90% Accuracy, 90% Recall, 90% Precision, 97.8% Train Accuracy
-  * LightGBM default: 77.7% Accuracy, 77.7% Recall, 78% Precision, 92.9% Train Accuracy
-  * LightGBM `class_weight_penalizing=False`: 78.7% Accuracy, 78.7% Recall, 77.7% Precision, 93.1% Train Accuracy
-  * CatBoost default: 73.6% Accuracy, 73.6% Recall, 77.6% Precision, 87.4% Train Accuracy
-  * CatBoost `class_weight_penalizing=False`: 78.9% Accuracy, 78.9% Recall, 77.9% Precision, 91.4% Train Accuracy
-  * RandomForest default: 77.4% Accuracy, 77.4% Recall, 77% Precision, 92.7% Train Accuracy
-  * RandomForest `class_weight_penalizing=False`: 77.8% Accuracy, 77.8% Recall, 76.7% Precision, 92.7% Train Accuracy
-* **Stacked Ensemble Model**:
-  * Default: 78.6% Accuracy, 79% Recall, 77% Precision
-
-
----    
-
 ## ✨ Highlights
 
 - **Full pipeline**: load → clean → engineer features → grouped CV → train ensembles → evaluate → threshold tuning → interpretability.
@@ -143,8 +118,31 @@ We address the above issues with a pipeline designed for **validity, control, an
 
 ---
 
-
-Great call. Here’s a **drop-in replacement** for your README’s **Pipeline** section that includes all the new training options (stacking, multi-step, binary) and keeps everything GitHub-friendly.
+## ✨ Results & Performance
+* Trained on Kepler KOI dataset: 9564 valid samples
+* 67 Features: 36 existing + 31 new features
+* **Binary Model**: 
+  * Default: 95.3% Accuracy , 92.1% Recall, 92.7% Precision
+  * Planet Detection (CONFIRMED + CANDIDATE): 96.7% Recall, 96.4% Precision
+* **Multistep Model (MLP + XGBoost)**: 
+  * Default: 88% Accuracy, 88% Recall, 87.5% Precision
+  * `drop_fpflags=False`: 91.2% Accuracy, 91.2% Recall, 91.1% Precision
+* **Ensemble Model**:
+  * XGBoost default: 78% Accuracy, 78% Recall, 78.2% Precision, 91.9% Train Accuracy
+  * XGBoost `class_weight_penalizing=False`: 78.7% Accuracy, 78.6% Recall, 77.6% Precision, 91.8% Train Accuracy
+  * XGBoost `drop_fpflags=False`: 90% Accuracy, 90% Recall, 90% Precision, 97.8% Train Accuracy
+  * LightGBM default: 77.7% Accuracy, 77.7% Recall, 78% Precision, 92.9% Train Accuracy
+  * LightGBM `class_weight_penalizing=False`: 78.7% Accuracy, 78.7% Recall, 77.7% Precision, 93.1% Train Accuracy
+  * LightGBM `drop_fpflags=False`: 90.1% Accuracy, 90.1% Recall, 90.2% Precision, 97.8% Train Accuracy
+  * CatBoost default: 73.6% Accuracy, 73.6% Recall, 77.6% Precision, 87.4% Train Accuracy
+  * CatBoost `class_weight_penalizing=False`: 78.9% Accuracy, 78.9% Recall, 77.9% Precision, 91.4% Train Accuracy
+  * CatBoost `drop_fpflags=False`: 89.8% Accuracy, 89.8% Recall, 90% Precision, 97.5% Train Accuracy
+  * RandomForest default: 77.4% Accuracy, 77.4% Recall, 77% Precision, 92.7% Train Accuracy
+  * RandomForest `class_weight_penalizing=False`: 77.8% Accuracy, 77.8% Recall, 76.7% Precision, 92.7% Train Accuracy
+  * RandomForest `drop_fpflags=False`: 88.9% Accuracy, 88.9% Recall, 88.8% Precision, 96% Train Accuracy
+* **Stacked Ensemble Model**:
+  * Default: 78.6% Accuracy, 79% Recall, 77% Precision
+  * `drop_fpflags=False`: 90.2% Accuracy, 90% Recall, 90% Precision, 97.1% Train Accuracy
 
 ---
 
