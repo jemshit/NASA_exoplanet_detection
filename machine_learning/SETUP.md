@@ -1,6 +1,6 @@
-# NASA Exoplanet Detection - Machine Learning
+# SETUP
 
-## 🗂️ Repository Structure
+## Repository Structure
 
 ```
 app.py                     # Demo entry point: orchestrates various end-to-end pipelines
@@ -9,13 +9,17 @@ preprocessing.py           # Clean data, drop leakage/ID cols, impute
 feature_extraction.py      # Engineer astrophysically meaningful features
 data_splitting.py          # Label encode y, StratifiedGroupKFold by kepid, save features.json
 training_ensemble.py       # Train XGB/LGBM/Cat/RF with grouped CV, select best
+training_binary.py         # Train a binary CONFIRMED vs FALSE POSITIVE classifier
+training_multistep.py      # Two-stage: Stage1 MLP (PLANET vs FP) → Stage2 XGB (CONFIRMED vs CANDIDATE)
+training_stacking_ensemble.py  # Train a stacking ensemble using base model
 summarizing.py             # Compute macro metrics + planet-centric metrics
 threshold_optimization.py  # Search per-class probability thresholds
 xgboost_tuning.py          # Optional: GridSearchCV for XGBoost with grouped CV
 plotting.py                # Feature importance extraction/plotting
+prediction.py              # Inference/prediction using trained models
 ```
 
-Artifacts: `outputs/`  
+#### Artifacts: `outputs/`  
 - Trained models: `trained_xgboost.pkl`, `trained_lightgbm.pkl`, `trained_catboost.pkl`, `trained_randomforest.pkl`, `stacking_model.pkl`, `binary_categories_model.pkl`, `multistep_nn_xgb.pkl`
 - All existing and new engineered features: `features.json`
 - Threshold optimization result: `threshold_configs.json`

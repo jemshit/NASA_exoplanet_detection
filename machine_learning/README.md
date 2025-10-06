@@ -1,7 +1,7 @@
 # Machine Learning
 
 ## Setup
-Check [Setup Documentation](SETUP.md)
+[Setup Documentation](SETUP.md)
 
 ---
 
@@ -13,14 +13,20 @@ Check [Setup Documentation](SETUP.md)
   * Planet Detection (CONFIRMED + CANDIDATE): 96.7% Recall, 96.4% Precision
 * **Multistep Model (MLP + XGBoost)**: 
   * Default: 88% Accuracy, 88% Recall, 87.5% Precision
-  * Without dropping `koi_fpflag_` columns: 91.2% Accuracy, 91.2% Recall, 91.1% Precision
+  * `drop_fpflags=False`: 91.2% Accuracy, 91.2% Recall, 91.1% Precision
 * **Ensemble Model**:
   * XGBoost default: 78% Accuracy, 78% Recall, 78.2% Precision, 91.9% Train Accuracy
+  * XGBoost `class_weight_penalizing=False`: 78.7% Accuracy, 78.6% Recall, 77.6% Precision, 91.8% Train Accuracy
+  * XGBoost `drop_fpflags=False`: 90% Accuracy, 90% Recall, 90% Precision, 97.8% Train Accuracy
   * LightGBM default: 77.7% Accuracy, 77.7% Recall, 78% Precision, 92.9% Train Accuracy
+  * LightGBM `class_weight_penalizing=False`: 78.7% Accuracy, 78.7% Recall, 77.7% Precision, 93.1% Train Accuracy
   * CatBoost default: 73.6% Accuracy, 73.6% Recall, 77.6% Precision, 87.4% Train Accuracy
+  * CatBoost `class_weight_penalizing=False`: 78.9% Accuracy, 78.9% Recall, 77.9% Precision, 91.4% Train Accuracy
   * RandomForest default: 77.4% Accuracy, 77.4% Recall, 77% Precision, 92.7% Train Accuracy
+  * RandomForest `class_weight_penalizing=False`: 77.8% Accuracy, 77.8% Recall, 76.7% Precision, 92.7% Train Accuracy
 * **Stacked Ensemble Model**:
   * Default: 78.6% Accuracy, 79% Recall, 77% Precision
+
 
 ---    
 
