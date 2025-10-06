@@ -56,23 +56,25 @@ function App() {
         )}
 
         <div className="flex flex-col lg:flex-row justify-center gap-6">
-          {/* Left Column */}
-          <div className={`w-full ${result ? 'lg:w-3/12' : 'lg:w-6/12'} self-center`}>
-            <InputCard
-              uploadedFile={uploadedFile}
-              onFileUpload={handleFileUpload}
-              parameters={parameters}
-              onParametersChange={setParameters}
-              analyzing={analyzing}
-              onAnalyze={handleAnalyze}
-              onCancel={handleCancel}
-              onViewDemo={handleViewDemo}
-            />
-          </div>
+          {/* Left Column - Hide when in demo mode */}
+          {!demoMode && (
+            <div className={`w-full ${result ? 'lg:w-3/12' : 'lg:w-6/12'} self-center`}>
+              <InputCard
+                uploadedFile={uploadedFile}
+                onFileUpload={handleFileUpload}
+                parameters={parameters}
+                onParametersChange={setParameters}
+                analyzing={analyzing}
+                onAnalyze={handleAnalyze}
+                onCancel={handleCancel}
+                onViewDemo={handleViewDemo}
+              />
+            </div>
+          )}
 
           {/* Right Column - Only show after analysis is complete */}
           {result && (
-            <div className="w-full lg:w-9/12">
+            <div className={`w-full ${demoMode ? 'lg:w-full' : 'lg:w-9/12'}`}>
               <OutputCard
                 result={result}
                 uploadedFile={uploadedFile}

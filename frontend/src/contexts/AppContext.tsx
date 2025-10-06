@@ -215,6 +215,10 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const handleViewDemo = () => {
     setDemoMode(true);
+    // Load mock data
+    import('../data/mockData').then(({ mockLightGBM }) => {
+      setResult(mockLightGBM);
+    });
   };
 
   const value: AppContextType = {

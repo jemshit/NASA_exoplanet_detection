@@ -244,7 +244,6 @@ export function InputCard({
 
           {/* Analysis Section */}
           <div className="space-y-4">
-            <h3 className="text-base font-medium text-primary-text dark:text-dark-primary-text">Analysis</h3>
             <Button
               className="bg-accent dark:bg-dark-accent hover:bg-accent-hover dark:hover:bg-dark-accent-hover text-white"
               size="lg"
