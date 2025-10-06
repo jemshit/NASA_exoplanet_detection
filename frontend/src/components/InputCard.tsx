@@ -124,7 +124,7 @@ export function InputCard({
         <div className="space-y-6">
           {/* Upload Section */}
           <div className="space-y-4">
-            <h3 className="text-base font-medium text-primary-text dark:text-dark-primary-text">Upload Lightcurve</h3>
+            <h3 className="text-base font-medium text-primary-text dark:text-dark-primary-text">Upload Kepler CSV</h3>
             <div
               className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                 isDragging
