@@ -5,31 +5,6 @@
 
 ---
 
-## Results & Performance
-* Trained on Kepler KOI dataset: 9564 valid samples
-* 67 Features: 36 existing + 31 new features
-* **Binary Model**: 
-  * Default: 95.3% Accuracy , 92.1% Recall, 92.7% Precision
-  * Planet Detection (CONFIRMED + CANDIDATE): 96.7% Recall, 96.4% Precision
-* **Multistep Model (MLP + XGBoost)**: 
-  * Default: 88% Accuracy, 88% Recall, 87.5% Precision
-  * `drop_fpflags=False`: 91.2% Accuracy, 91.2% Recall, 91.1% Precision
-* **Ensemble Model**:
-  * XGBoost default: 78% Accuracy, 78% Recall, 78.2% Precision, 91.9% Train Accuracy
-  * XGBoost `class_weight_penalizing=False`: 78.7% Accuracy, 78.6% Recall, 77.6% Precision, 91.8% Train Accuracy
-  * XGBoost `drop_fpflags=False`: 90% Accuracy, 90% Recall, 90% Precision, 97.8% Train Accuracy
-  * LightGBM default: 77.7% Accuracy, 77.7% Recall, 78% Precision, 92.9% Train Accuracy
-  * LightGBM `class_weight_penalizing=False`: 78.7% Accuracy, 78.7% Recall, 77.7% Precision, 93.1% Train Accuracy
-  * CatBoost default: 73.6% Accuracy, 73.6% Recall, 77.6% Precision, 87.4% Train Accuracy
-  * CatBoost `class_weight_penalizing=False`: 78.9% Accuracy, 78.9% Recall, 77.9% Precision, 91.4% Train Accuracy
-  * RandomForest default: 77.4% Accuracy, 77.4% Recall, 77% Precision, 92.7% Train Accuracy
-  * RandomForest `class_weight_penalizing=False`: 77.8% Accuracy, 77.8% Recall, 76.7% Precision, 92.7% Train Accuracy
-* **Stacked Ensemble Model**:
-  * Default: 78.6% Accuracy, 79% Recall, 77% Precision
-
-
----    
-
 ## ✨ Highlights
 
 - **Full pipeline**: load → clean → engineer features → grouped CV → train ensembles → evaluate → threshold tuning → interpretability.
@@ -143,8 +118,31 @@ We address the above issues with a pipeline designed for **validity, control, an
 
 ---
 
-
-Great call. Here’s a **drop-in replacement** for your README’s **Pipeline** section that includes all the new training options (stacking, multi-step, binary) and keeps everything GitHub-friendly.
+## ✨ Results & Performance
+* Trained on Kepler KOI dataset: 9564 valid samples
+* 67 Features: 36 existing + 31 new features
+* **Binary Model**: 
+  * Default: 95.3% Accuracy , 92.1% Recall, 92.7% Precision
+  * Planet Detection (CONFIRMED + CANDIDATE): 96.7% Recall, 96.4% Precision
+* **Multistep Model (MLP + XGBoost)**: 
+  * Default: 88% Accuracy, 88% Recall, 87.5% Precision
+  * `drop_fpflags=False`: 91.2% Accuracy, 91.2% Recall, 91.1% Precision
+* **Ensemble Model**:
+  * XGBoost default: 78% Accuracy, 78% Recall, 78.2% Precision, 91.9% Train Accuracy
+  * XGBoost `class_weight_penalizing=False`: 78.7% Accuracy, 78.6% Recall, 77.6% Precision, 91.8% Train Accuracy
+  * XGBoost `drop_fpflags=False`: 90% Accuracy, 90% Recall, 90% Precision, 97.8% Train Accuracy
+  * LightGBM default: 77.7% Accuracy, 77.7% Recall, 78% Precision, 92.9% Train Accuracy
+  * LightGBM `class_weight_penalizing=False`: 78.7% Accuracy, 78.7% Recall, 77.7% Precision, 93.1% Train Accuracy
+  * LightGBM `drop_fpflags=False`: 90.1% Accuracy, 90.1% Recall, 90.2% Precision, 97.8% Train Accuracy
+  * CatBoost default: 73.6% Accuracy, 73.6% Recall, 77.6% Precision, 87.4% Train Accuracy
+  * CatBoost `class_weight_penalizing=False`: 78.9% Accuracy, 78.9% Recall, 77.9% Precision, 91.4% Train Accuracy
+  * CatBoost `drop_fpflags=False`: 89.8% Accuracy, 89.8% Recall, 90% Precision, 97.5% Train Accuracy
+  * RandomForest default: 77.4% Accuracy, 77.4% Recall, 77% Precision, 92.7% Train Accuracy
+  * RandomForest `class_weight_penalizing=False`: 77.8% Accuracy, 77.8% Recall, 76.7% Precision, 92.7% Train Accuracy
+  * RandomForest `drop_fpflags=False`: 88.9% Accuracy, 88.9% Recall, 88.8% Precision, 96% Train Accuracy
+* **Stacked Ensemble Model**:
+  * Default: 78.6% Accuracy, 79% Recall, 77% Precision
+  * `drop_fpflags=False`: 90.2% Accuracy, 90% Recall, 90% Precision, 97.1% Train Accuracy
 
 ---
 
@@ -238,38 +236,38 @@ Function: `clean_koi_dataset(df, drop_fpflags=True)`
 
 ### Features, formulas, and intuition
 
-| Feature                     | Formula (pseudo-code)                                                                                                       | What it captures / Why it helps                                                                                                     |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `period_radius_ratio`       | `log1p(P) / log1p(Rp)`                                                                                                      | Compares orbital timescale to planet size on a stable (log) scale; separates compact/fast from large/slow systems.                  |
-| `period_prad_product`       | `P * Rp`                                                                                                                    | Simple interaction; different regimes (large–long vs small–short) behave differently with noise/systematics.                        |
-| `depth_duration_ratio`      | `Depth / Dur`                                                                                                               | “Steepness” of the transit per hour; deeper, shorter events tend to be cleaner/planet-like.                                         |
-| `prad_srad_ratio`           | `Rp / Rstar`                                                                                                                | Relative size of planet to host star; directly tied to geometric transit depth.                                                     |
-| `prad_srad_ratio_squared`   | `(Rp / Rstar) ** 2`                                                                                                         | Approximate theoretical transit depth (no limb darkening); strong physical predictor.                                               |
-| `detectability`             | `SNR * Depth`                                                                                                               | Composite prominence of the dip: bigger/cleaner transits (high SNR, deep) rank higher.                                              |
-| `snr_per_depth`             | `SNR / (Depth + eps)`                                                                                                       | Noise-normalized clarity; penalizes shallow dips even if SNR is modest.                                                             |
-| `log_period`                | `log1p(P)`                                                                                                                  | Stabilizes heavy-tailed periods for tree splits.                                                                                    |
-| `sqrt_period`               | `sqrt(P)`                                                                                                                   | Alternative scaling; models can pick the useful view.                                                                               |
-| `period_sq`                 | `P ** 2`                                                                                                                    | Expands long-period regimes; captures curvature.                                                                                    |
-| `log_prad`                  | `log1p(Rp)`                                                                                                                 | Stabilizes planet radius scale.                                                                                                     |
-| `sqrt_prad`                 | `sqrt(Rp)`                                                                                                                  | Alternative radius scaling.                                                                                                         |
-| `prad_sq`                   | `Rp ** 2`                                                                                                                   | Emphasizes large planets.                                                                                                           |
-| `log_depth`                 | `log1p(Depth)`                                                                                                              | Stabilizes tiny depths; preserves ordering.                                                                                         |
-| `sqrt_depth`                | `sqrt(Depth)`                                                                                                               | Alternative depth scaling.                                                                                                          |
-| `depth_sq`                  | `Depth ** 2`                                                                                                                | Emphasizes very deep events.                                                                                                        |
-| `impact_centrality`         | `1 - abs(b)`                                                                                                                | Centrality of transit (1 = central); central transits are longer/deeper and more planet-like.                                       |
-| `is_grazing_transit`        | `1 if b > 0.7 else 0`                                                                                                       | Flags grazing/near-limb events; more error-prone and FP-like.                                                                       |
-| `stellar_class`             | `bucket(Teff)` (e.g., F/G/K/M bins)                                                                                         | Encodes host type; host properties modulate expected depth/duration and variability.                                                |
-| `temp_ratio`                | `Teq / Teff` (if both exist)                                                                                                | How “hot” the planet is relative to star surface; sanity check for plausible insolation.                                            |
-| `estimated_distance`        | heuristic from photometric/stellar params                                                                                   | Coarse distance proxy; distant targets can be noisier → helps identify borderline events.                                           |
-| `insolation_distance_check` | `observed_insolation / (expected_insolation + eps)`; where `expected_insolation ∝ (Teff/5777)^4 * (Rstar/1)^2 / (a/1 AU)^2` | Consistency between observed insolation and what stellar size/temperature and separation imply; mismatches hint at systematics/FPs. |
-| `is_multiplanet`            | `1 if N > 1 else 0`                                                                                                         | Multi-planet systems are statistically more likely to be real planets.                                                              |
-| `planet_position_log`       | `log1p(N)`                                                                                                                  | Smoothed index of the planet within its system; weak regularizer for multiplicity effects.                                          |
-| `period_relative_error`     | `(abs(period_err1) + abs(period_err2)) / (abs(P) + eps)`                                                                    | Relative precision of the measured period; large = less trustable signals.                                                          |
-| `depth_relative_error`      | `(abs(depth_err1) + abs(depth_err2)) / (Depth + eps)`                                                                       | Relative precision of the transit depth; penalizes shaky/shallow dips.                                                              |
-| `duration_fraction`         | `Dur / (P * 24)`                                                                                                            | Transit duration as a fraction of orbital period; central planet-like transits sit in a predictable range.                          |
-| `is_long_transit`           | `1 if duration_fraction > 0.15 else 0`                                                                                      | Flags unusually long events for their `P`; often stellar/systematic in origin.                                                      |
-| `transit_duration_ratio`    | `Dur / (P ** (1/3) + eps)`                                                                                                  | Roughly normalizes duration by the `P^(1/3)` scaling from Kepler’s law; highlights geometry-consistent vs anomalous durations.      |
-| `log_snr`                   | `log1p(SNR)`                                                                                                                | Stabilized SNR; reduces dominance of extreme SNRs while keeping ordering.                                                           |
+| Feature                     | Formula (pseudo-code)                                    | What it captures / Why it helps                                                                                                     |
+| --------------------------- |----------------------------------------------------------| ----------------------------------------------------------------------------------------------------------------------------------- |
+| `period_radius_ratio`       | `log1p(P) / log1p(Rp)`                                   | Compares orbital timescale to planet size on a stable (log) scale; separates compact/fast from large/slow systems.                  |
+| `period_prad_product`       | `P * Rp`                                                 | Simple interaction; different regimes (large–long vs small–short) behave differently with noise/systematics.                        |
+| `depth_duration_ratio`      | `Depth / Dur`                                            | “Steepness” of the transit per hour; deeper, shorter events tend to be cleaner/planet-like.                                         |
+| `prad_srad_ratio`           | `Rp / Rstar`                                             | Relative size of planet to host star; directly tied to geometric transit depth.                                                     |
+| `prad_srad_ratio_squared`   | `(Rp / Rstar) ** 2`                                      | Approximate theoretical transit depth (no limb darkening); strong physical predictor.                                               |
+| `detectability`             | `koi_prad / np.log1p(koi_period)`                        | Composite prominence of the dip: bigger/cleaner transits (high SNR, deep) rank higher.                                              |
+| `snr_per_depth`             | `SNR / (Depth + eps)`                                    | Noise-normalized clarity; penalizes shallow dips even if SNR is modest.                                                             |
+| `log_period`                | `log1p(P)`                                               | Stabilizes heavy-tailed periods for tree splits.                                                                                    |
+| `sqrt_period`               | `sqrt(P)`                                                | Alternative scaling; models can pick the useful view.                                                                               |
+| `period_sq`                 | `P ** 2`                                                 | Expands long-period regimes; captures curvature.                                                                                    |
+| `log_prad`                  | `log1p(Rp)`                                              | Stabilizes planet radius scale.                                                                                                     |
+| `sqrt_prad`                 | `sqrt(Rp)`                                               | Alternative radius scaling.                                                                                                         |
+| `prad_sq`                   | `Rp ** 2`                                                | Emphasizes large planets.                                                                                                           |
+| `log_depth`                 | `log1p(Depth)`                                           | Stabilizes tiny depths; preserves ordering.                                                                                         |
+| `sqrt_depth`                | `sqrt(Depth)`                                            | Alternative depth scaling.                                                                                                          |
+| `depth_sq`                  | `Depth ** 2`                                             | Emphasizes very deep events.                                                                                                        |
+| `impact_centrality`         | `1 - abs(b)`                                             | Centrality of transit (1 = central); central transits are longer/deeper and more planet-like.                                       |
+| `is_grazing_transit`        | `1 if b > 0.7 else 0`                                    | Flags grazing/near-limb events; more error-prone and FP-like.                                                                       |
+| `stellar_class`             | `bucket(Teff)` (e.g., F/G/K/M bins)                      | Encodes host type; host properties modulate expected depth/duration and variability.                                                |
+| `temp_ratio`                | `Teq / Teff` (if both exist)                             | How “hot” the planet is relative to star surface; sanity check for plausible insolation.                                            |
+| `estimated_distance`        | heuristic from photometric/stellar params                | Coarse distance proxy; distant targets can be noisier → helps identify borderline events.                                           |
+| `insolation_distance_check` | `koi_insol * (estimated_distance^2)`                     | Consistency between observed insolation and what stellar size/temperature and separation imply; mismatches hint at systematics/FPs. |
+| `is_multiplanet`            | `1 if N > 1 else 0`                                      | Multi-planet systems are statistically more likely to be real planets.                                                              |
+| `planet_position_log`       | `log1p(N)`                                               | Smoothed index of the planet within its system; weak regularizer for multiplicity effects.                                          |
+| `period_relative_error`     | `(abs(period_err1) + abs(period_err2)) / (abs(P) + eps)` | Relative precision of the measured period; large = less trustable signals.                                                          |
+| `depth_relative_error`      | `(abs(depth_err1) + abs(depth_err2)) / (Depth + eps)`    | Relative precision of the transit depth; penalizes shaky/shallow dips.                                                              |
+| `duration_fraction`         | `Dur / (P * 24)`                                         | Transit duration as a fraction of orbital period; central planet-like transits sit in a predictable range.                          |
+| `is_long_transit`           | `1 if duration_fraction > 0.15 else 0`                   | Flags unusually long events for their `P`; often stellar/systematic in origin.                                                      |
+| `transit_duration_ratio`    | `duration / (period * 24 + 1e-8)`                        | Roughly normalizes duration by the `P^(1/3)` scaling from Kepler’s law; highlights geometry-consistent vs anomalous durations.      |
+| `log_snr`                   | `log1p(SNR)`                                             | Stabilized SNR; reduces dominance of extreme SNRs while keeping ordering.                                                           |
 
 
 **Function:** `create_advanced_features(df)`

@@ -22,6 +22,9 @@ Inspired by *Star Trek’s* Vulcan pursuit of knowledge — **“S'kai”**, mea
 
 Our mission: To build an intelligent platform that helps humanity discover new worlds — automatically.
 
+## 🧠 Machine Learning 
+### [Documentation](../machine_learning/README.md)
+
 ---
 
 ## 🧠 The Challenge
@@ -39,7 +42,7 @@ The model predicts whether an observation corresponds to a **confirmed exoplanet
 
 ### 🌍 Our Approach
 
-1. **Data Preprocessing:** Clean and normalize datasets from `Kepler`, `K2`, and `TESS` missions.
+1. **Data Preprocessing:** Clean and normalize datasets from `Kepler` missions.
 2. **Model Training:** Build and tune ML models using `scikit-learn`.
 3. **Interactive UI:** Develop a web interface for real-time prediction and data uploads.
 4. **Continuous Learning:** Allow users to retrain models dynamically with new data.
@@ -121,7 +124,7 @@ Our goal is to create a platform that **democratizes access to exoplanet explora
 Our team, **Outlander**, reimagined our NASA Space Apps Challenge project —
 ***A World Away: Hunting for Exoplanets with AI*** — as a cinematic *Star Trek*-inspired short screenplay titled ***The Exoplanet Enigma***.
 
-In this fictional story, the crew of the **USS Enterprise-D**, led by **Captain Kirk**, **Spock**, and **Number One**, venture into a mysterious nebula and discover a gravitational anomaly resembling a planet. Unable to rely on visual assumptions, Spock deploys our AI-powered detection system **S’kaiNet - Exoplanet analyzer**, a scientific interface developed by **Starfleet’s Outlander Team**. Using real mission data from **Kepler**, **K2**, and **TESS**, the system calculates a 92 % probability that the object is a confirmed **exoplanet**.
+In this fictional story, the crew of the **USS Enterprise-D**, led by **Captain Kirk**, **Spock**, and **Number One**, venture into a mysterious nebula and discover a gravitational anomaly resembling a planet. Unable to rely on visual assumptions, Spock deploys our AI-powered detection system **S’kaiNet - Exoplanet analyzer**, a scientific interface developed by **Starfleet’s Outlander Team**. Using real mission data from **Kepler**, the system calculates a 87 % probability that the object is a confirmed **exoplanet**.
 Through this blend of **science fiction storytelling** and **real astrophysical methodology**, *The Exoplanet Enigma* mirrors the same logic and data-driven exploration principles behind our actual NASA project.
 
 🎧 The story was also adapted into an **audio fiction podcast** titled ***S’kaiNet Chronicles***, combining cinematic voice acting, immersive sound design, and AI-generated narration to bring the Starfleet discovery to life.
