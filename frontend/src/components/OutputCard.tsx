@@ -93,6 +93,17 @@ export function OutputCard({
           )}
         </div>
         <div className="flex gap-2">
+          {onDemoModeChange && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-secondary-text dark:text-dark-secondary-text">Demo Mode</span>
+              <Switch
+                isSelected={demoMode}
+                onValueChange={onDemoModeChange}
+                size="sm"
+                color="success"
+              />
+            </div>
+          )}
           {demoMode && onDemoExampleChange && (
             <Dropdown>
               <DropdownTrigger>
@@ -115,34 +126,25 @@ export function OutputCard({
               </DropdownMenu>
             </Dropdown>
           )}
-          <Dropdown>
-            <DropdownTrigger>
-              <Button size="sm" variant="flat">
-                Download
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Download options">
-              <DropdownItem key="json" onPress={handleDownloadJson}>
-                JSON
-              </DropdownItem>
-              <DropdownItem key="csv" isDisabled title="Coming soon">
-                CSV
-              </DropdownItem>
-              <DropdownItem key="pdf" isDisabled title="Coming soon">
-                PDF
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          {onDemoModeChange && (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-secondary-text dark:text-dark-secondary-text">Demo Mode</span>
-              <Switch
-                isSelected={demoMode}
-                onValueChange={onDemoModeChange}
-                size="sm"
-                color="success"
-              />
-            </div>
+          <Button size="sm" variant="flat" color="danger" onPress={onReset}>
+            Reset
+          </Button>
+          {!demoMode && (
+            <Dropdown>
+              <DropdownTrigger>
+                <Button size="sm" variant="flat">
+                  Download
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Download options">
+                <DropdownItem key="json" onPress={handleDownloadJson}>
+                  JSON
+                </DropdownItem>
+                <DropdownItem key="csv" isDisabled title="Coming soon">
+                  CSV
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           )}
         </div>
       </CardHeader>
