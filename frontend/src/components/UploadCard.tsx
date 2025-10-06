@@ -12,11 +12,11 @@ export function UploadCard({ uploadedFile, onFileUpload }: UploadCardProps) {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleFileUpload = (file: File) => {
-    const validExtensions = ['.csv', '.fits', '.zip'];
+    const validExtensions = ['.csv'];
     const ext = '.' + file.name.split('.').pop()?.toLowerCase();
 
     if (!validExtensions.includes(ext)) {
-      alert('Please upload a .csv, .fits, or .zip file');
+      alert('Please upload a .csv file');
       return;
     }
 
@@ -76,7 +76,7 @@ export function UploadCard({ uploadedFile, onFileUpload }: UploadCardProps) {
           <input
             ref={fileInputRef}
             type="file"
-            accept=".csv,.fits,.zip"
+            accept=".csv"
             onChange={handleFileInputChange}
             className="hidden"
           />
@@ -90,7 +90,7 @@ export function UploadCard({ uploadedFile, onFileUpload }: UploadCardProps) {
             >
               Browse Files
             </Button>
-            <p className="text-xs text-disabled dark:text-dark-disabled">Accepts: .csv, .fits, .zip</p>
+            <p className="text-xs text-disabled dark:text-dark-disabled">Accepts: .csv</p>
           </div>
         </div>
 

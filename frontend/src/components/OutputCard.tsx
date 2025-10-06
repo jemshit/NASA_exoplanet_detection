@@ -13,7 +13,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from '@heroui/react';
-import type { AnalysisResult, Parameters, UploadedFile } from '../types';
+import type { AnalysisResult, UploadedFile } from '../types';
 import { SummaryTab } from './output/SummaryTab';
 import { PhaseFoldTab } from './output/PhaseFoldTab';
 import { ExplainabilityTab } from './output/ExplainabilityTab';
@@ -21,7 +21,6 @@ import { JSONTab } from './output/JSONTab';
 
 interface OutputCardProps {
   result: AnalysisResult | null;
-  parameters: Parameters;
   uploadedFile: UploadedFile | null;
   onReset: () => void;
   demoMode?: boolean;
@@ -31,7 +30,6 @@ interface OutputCardProps {
 
 export function OutputCard({
   result,
-  parameters: _parameters,
   uploadedFile: _uploadedFile,
   onReset,
   demoMode = false,

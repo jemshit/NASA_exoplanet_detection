@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { AppBar } from './components/AppBar';
-import { UploadCard } from './components/UploadCard';
-import { ParametersCard } from './components/ParametersCard';
-import { AnalysisCard } from './components/AnalysisCard';
+import { InputCard } from './components/InputCard';
 import { OutputCard } from './components/OutputCard';
 import type { UploadedFile, Parameters, AnalysisResult } from './types';
 import { defaultParameters } from './types';
@@ -50,10 +48,10 @@ function App() {
 
     const steps = [
       { msg: 'Loading lightcurve data...', duration: 500 },
-      { msg: 'Detrending using ' + parameters.detrend + '...', duration: 800 },
+      { msg: 'Detrending...', duration: 800 },
       { msg: 'Running TLS (Transit Least Squares)...', duration: 1200 },
       { msg: 'Fitting transit model...', duration: 700 },
-      { msg: 'Classifying with ' + parameters.model.toUpperCase() + '...', duration: 600 },
+      { msg: 'Classifying...', duration: 600 },
       { msg: 'Analysis complete!', duration: 300 },
     ];
 
@@ -83,37 +81,33 @@ function App() {
       <AppBar />
 
       <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row justify-center gap-6">
           {/* Left Column */}
-          <div className="w-full lg:w-3/12 space-y-6">
-            <UploadCard
+          <div className={`w-full ${result ? 'lg:w-3/12' : 'lg:w-6/12'} self-center`}>
+            <InputCard
               uploadedFile={uploadedFile}
               onFileUpload={handleFileUpload}
-            />
-            <ParametersCard
               parameters={parameters}
               onParametersChange={setParameters}
-            />
-            <AnalysisCard
-              uploadedFile={!!uploadedFile}
               analyzing={analyzing}
               onAnalyze={handleAnalyze}
               onCancel={handleCancel}
             />
           </div>
 
-          {/* Right Column */}
-          <div className="w-full lg:w-8/12">
-            <OutputCard
-              result={result}
-              parameters={parameters}
-              uploadedFile={uploadedFile}
-              onReset={handleReset}
-              demoMode={demoMode}
-              onDemoModeChange={handleDemoModeChange}
-              onDemoExampleChange={handleDemoExampleChange}
-            />
-          </div>
+          {/* Right Column - Only show after analysis is complete */}
+          {result && (
+            <div className="w-full lg:w-9/12">
+              <OutputCard
+                result={result}
+                uploadedFile={uploadedFile}
+                onReset={handleReset}
+                demoMode={demoMode}
+                onDemoModeChange={handleDemoModeChange}
+                onDemoExampleChange={handleDemoExampleChange}
+              />
+            </div>
+          )}
         </div>
       </main>
     </div>

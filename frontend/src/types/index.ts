@@ -10,14 +10,9 @@ export interface UploadedFile {
 }
 
 export interface Parameters {
-  detrend: 'none' | 'loess' | 'sg';
-  window: number;
-  pMin: number;
-  pMax: number;
-  oversample: number;
-  maxDurationHr: number;
-  nPhaseBins: number;
-  model: 'lgbm' | 'cnn';
+  model_type: 'ensemble' | 'binary_categories' | 'multistep';
+  class_weight_penalizing: boolean;
+  drop_fpflags: boolean;
 }
 
 export interface AnalysisResult {
@@ -61,13 +56,8 @@ export interface AnalysisResult {
 }
 
 export const defaultParameters: Parameters = {
-  detrend: 'loess',
-  window: 0.5,
-  pMin: 0.2,
-  pMax: 30,
-  oversample: 5,
-  maxDurationHr: 10,
-  nPhaseBins: 200,
-  model: 'lgbm',
+  model_type: 'ensemble',
+  class_weight_penalizing: false,
+  drop_fpflags: false,
 };
 
