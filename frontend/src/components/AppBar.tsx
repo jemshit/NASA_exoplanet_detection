@@ -3,14 +3,9 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Button,
   Switch,
 } from '@heroui/react';
-import { ChevronDown, Sun, Moon } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
 
@@ -42,7 +37,7 @@ export function AppBar() {
             />
           </div>
         </NavbarItem>
-        <NavbarItem>
+        {/* <NavbarItem>
           <Dropdown>
             <DropdownTrigger>
               <Button 
@@ -59,7 +54,7 @@ export function AppBar() {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
     </Navbar>
   );

@@ -24,6 +24,7 @@ export function UploadCard({ uploadedFile, onFileUpload }: UploadCardProps) {
       name: file.name,
       size: file.size,
       hash: 'sha256:' + Math.random().toString(36).substring(2, 15),
+      file: file,
       validation: {
         time: true,
         flux: true,
