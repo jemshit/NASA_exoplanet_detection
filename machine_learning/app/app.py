@@ -238,7 +238,7 @@ if __name__ == "__main__":
     # ensemble_pipeline(input_rows, class_weight_penalizing=True, drop_fpflags=True)
     # binary_categories_pipeline(input_rows, drop_fpflags=True)
 
-    # PREDICTION
+    # PREDICTION 
     predict(dataset_path=DATASET_PATH, input_rows=input_rows, model_path=OUTPUT_FOLDER + "stacking_model.pkl")
 
     warnings.filterwarnings("default", category=RuntimeWarning)
