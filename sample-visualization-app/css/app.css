@@ -106,7 +106,15 @@ body {
 	font-size: 1.5rem;
 	color: var(--primary-cyan) !important;
 	text-decoration: none;
+  height: 50px;
+  width: auto;
 }
+
+.navbar-brand img {
+	height: 50px;
+	width: auto;
+}
+
 
 .brand-text {
 	font-family: var(--font-display);
