@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NASA Exoplanet Detection - Data Visualization</title>
+	<meta name="description" content="S'kaiNet — Exoplanet analyzer is an AI-powered exoplanet detection system developed for the 2025 NASA Space Apps Challenge. Inspired by Star Trek’s Vulcan pursuit of knowledge — “S'kai”, meaning enlightenment — our project combines scientific curiosity with artificial intelligence to identify exoplanets from NASA’s open datasets.">
+    <title>S`kaiNet Exoplanet Analyzer</title>
+		<link rel="icon" type="image/png" href="../frontend/public/assets/images/fav.png">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -24,20 +26,10 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">🚀 NASA Exoplanet Detection</a>
+            <a class="navbar-brand fw-bold" href="#">🚀 S`kaiNet - Exoplanet analyzer</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#overview">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#visualizations">Visualizations</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
 
@@ -105,6 +97,34 @@
                     </div>
                 </div>
 
+                <!-- Stellar Class Distribution -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            ⭐ Stellar Class Distribution
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="stellarClassChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Analysis -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            📊 Measurement Error Analysis
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="errorAnalysisChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Orbital Period vs Planet Radius -->
                 <div class="col-12">
                     <div class="card">
@@ -112,7 +132,7 @@
                             🌌 Orbital Period vs Planet Radius (Interactive)
                         </div>
                         <div class="card-body">
-                            <div class="chart-container">
+                            <div class="chart-container-wide">
                                 <div id="scatterPlot"></div>
                             </div>
                         </div>
@@ -120,28 +140,14 @@
                 </div>
 
                 <!-- Stellar Temperature vs Planet Temperature -->
-                <div class="col-lg-6 col-md-12">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             ⭐ Stellar vs Planet Temperature
                         </div>
                         <div class="card-body">
-                            <div class="chart-container">
+                            <div class="chart-container-wide">
                                 <div id="temperaturePlot"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Signal-to-Noise Ratio -->
-                <div class="col-lg-6 col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            📡 Signal-to-Noise Ratio by Classification
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="snrChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -154,8 +160,92 @@
                             🔍 Transit Depth Analysis
                         </div>
                         <div class="card-body">
-                            <div class="chart-container">
+                            <div class="chart-container-wide">
                                 <div id="transitDepthPlot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detectability Analysis -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            🔬 Planet Detectability Metrics
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <div id="detectabilityPlot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Period-Radius Ratio Analysis -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            📐 Period-Radius Ratio Distribution
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="periodRadiusRatioChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transit Characteristics -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            🌘 Transit Characteristics Analysis
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="transitCharacteristicsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multiplanet Systems -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            🌍 Multiplanet System Analysis
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="multiplanetChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Log-scale Comparisons -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            📈 Logarithmic Scale Feature Relationships
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container-wide">
+                                <div id="logScalePlot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Correlation Matrix -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            🔥 Feature Correlation Matrix
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container-wide">
+                                <div id="correlationMatrix"></div>
                             </div>
                         </div>
                     </div>
